@@ -1,0 +1,105 @@
+.sequencing{
+  padding-top: 120px;
+  @media ('max-width: 767px') {
+    padding-top: 80px;
+  }
+  .sequencing_wrap{
+    display: flex;
+    justify-content: flex-start;
+    @media ('max-width: 768px') {
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .left_side{
+      margin-right: 78px;
+      flex-shrink: 0;
+      @media ('max-width: 768px') {
+        display: flex;
+        flex-direction: column-reverse;
+        align-items: center;
+      }
+      @media ('max-width: 767px') {
+        margin-right: 0;
+      }
+      .block_title{
+        margin-bottom: 40px;
+        h2{
+          font-family: $font;
+          font-size: 40px;
+          font-weight: 400;
+          line-height: 48px;
+          text-transform: uppercase;
+          @media ('max-width: 767px') {
+            font-size: 24px;
+            line-height: 32px;
+          }
+          strong{
+            font-weight: 700;
+          }
+        }
+      }
+      .block_img{
+        img{
+          width: 520px;
+
+          @media ('max-width: 768px') {
+            width: 280px;
+          }
+        }
+      }
+    }
+    .right_side{
+      max-width: 570px;
+      p{
+        margin-bottom: 16px;
+        font-family: $font;
+        font-size: 24px;
+        font-weight: 400;
+        line-height: 40px;
+        @media ('max-width: 767px') {
+          font-size: 16px;
+          line-height: 24px;
+        }
+        strong{
+          font-weight: 700;
+          letter-spacing: 1px;
+        }
+      }
+      ul{
+        padding-left: 35px;
+        margin-bottom: 50px;
+        li{
+          font-family: $font;
+          font-size: 24px;
+          font-weight: 400;
+          line-height: 40px;
+          margin-bottom: 15px;
+          position: relative;
+          @media ('max-width: 767px') {
+            font-size: 16px;
+            line-height: 24px;
+          }
+          &:before{
+            content: '';
+            position: absolute;
+            top: 17px;
+            left: -20px;
+            display: block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #231F20;
+          }
+          &:last-child{
+            margin-bottom: 0;
+          }
+          b{
+            font-weight: 700;
+            letter-spacing: 1px;
+          }
+        }
+      }
+    }
+  }
+}

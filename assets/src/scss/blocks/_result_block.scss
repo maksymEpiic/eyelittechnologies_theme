@@ -1,0 +1,141 @@
+.result{
+  padding-top: 120px;
+  @media ('max-width: 768px') {
+    padding-top: 80px;
+  }
+  .title_of_block{
+    margin-bottom: 40px;
+    @media ('max-width: 768px') {
+      margin-bottom: 24px;
+
+    }
+    h2{
+      text-align: center;
+      font-family: $fontloght;
+      font-size: 40px;
+      line-height: 48px;
+      font-weight: 300;
+      b{
+        font-family: $font;
+        font-weight: 600;
+      }
+      @media ('max-width: 768px') {
+        font-size: 24px;
+
+      }
+    }
+  }
+  .result_wrap{
+    display: flex;
+    gap: 54px;
+    max-width: 1056px;
+    justify-content: space-between;
+    margin: auto;
+    position: relative;
+    @media ('max-width: 768px') {
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 295px;
+      padding-left: 29px;
+      gap: 40px;
+    }
+    .result_item{
+      width: 15.15%;
+      padding-top: 32px;
+      position: relative;
+      @media ('max-width: 768px') {
+        width: 100%;
+        padding-top: 0;
+      }
+      &:before{
+        content: '';
+        width: 18px;
+        height: 18px;
+        background-color: rgba(55, 164, 128, 1);
+        border-radius: 50%;
+        //background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='12' cy='12' r='12' fill='%23FCA311'/%3E%3Cpath d='M8 8L16 16M16 16V10M16 16H10' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+        display: block;
+        position: absolute;
+        top: -1px;
+        left: 0;
+        right: 0;
+        margin: auto;
+        z-index: 1;
+        @media ('max-width: 768px') {
+          left: -38px;
+          right: auto;
+          top: 21%;
+        }
+      }
+      &:after{
+        content: '';
+        height: 1px;
+        background-color: rgba(3, 146, 227, 1);
+        position: absolute;
+        left: 0;
+        width: calc(100% + 64px);
+        top: 8px;
+        @media ('max-width: 768px') {
+          width: 1px;
+          height: calc(100% + 40px);
+          top: 0;
+          left: -29px;
+        }
+      }
+      &:first-child{
+        &:after{
+          left: 50%;
+          @media ('max-width: 768px') {
+            top: 45%;
+            left: -29px;
+          }
+        }
+      }
+      &:last-child{
+        &:after{
+          right: 50%;
+          left: auto;
+          @media ('max-width: 768px') {
+            top: auto;
+            bottom: 65%;
+            left: -29px;
+          }
+        }
+      }
+
+
+      .res_cout{
+        position: relative;
+
+
+        span{
+          font-family: $font;
+          color: rgba(3, 146, 227, 1);
+          font-size: 40px;
+          line-height: 40px;
+          font-weight: 700;
+          text-align: center;
+          display: block;
+          margin-bottom: 8px;
+          white-space: nowrap;
+          @media ('max-width: 768px') {
+            text-align: left;
+          }
+        }
+      }
+      .res_text{
+        font-size: 16px;
+        line-height: 24px;
+        color: #231F20;
+        text-align: center;
+        @media ('max-width: 768px') {
+          text-align: left;
+          br{
+            display: none;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+    @@include('html/components/_head.html', {
+        title: 'Eyelit Technologies', styles: 
+        [ 'main' ]
+    } )
+    <body>
+        <div class="site-wrapper">
+            @@include('html/components/_header.html',{})
+            <main class="site-page">
+                @@include('html/blocks/_banner.html',{})
+                @@include('html/blocks/_services.html',{})
+                @@include('html/blocks/_solutions.html',{})
+                @@include('html/blocks/_trusted.html',{})
+                @@include('html/blocks/_manufacturing.html',{})
+                @@include('html/blocks/_industry.html',{})
+                @@include('html/blocks/_result.html',{})
+                @@include('html/blocks/_reviews.html',{})
+                @@include('html/blocks/_ready_banner.html',{})
+            </main>
+            @@include('html/components/_footer.html',{})
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+        <script defer src="./js/script.js"></script>
+    </body>
+
+</html>

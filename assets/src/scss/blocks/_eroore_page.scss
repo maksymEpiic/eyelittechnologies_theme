@@ -1,0 +1,19 @@
+.eroore_page{
+  .content_wrap{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .image{
+      margin-bottom: 24px;
+    }
+    .content{
+      margin-bottom: 64px;
+      .contact-us__title{
+        font-size: 24px;
+        font-family: $fontblack;
+        margin: 0;
+      }
+    }
+  }
+}

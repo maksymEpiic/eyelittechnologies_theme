@@ -1,0 +1,104 @@
+.white_paper_block{
+  padding-top: 120px;
+  @media ('max-width: 767px') {
+    padding-top: 80px;
+  }
+  .white_paper_block_top_title{
+    text-align: center;
+    h2{
+      font-size: 40px;
+      line-height: 150%;
+      margin-bottom: 40px;
+      @media ('max-width: 767px') {
+        font-size: 24px;
+        margin-bottom: 24px;
+        br{
+          display: none;
+        }
+      }
+    }
+    .subtitle_block{
+      margin-bottom: 40px;
+      @media ('max-width: 767px') {
+
+        margin-bottom: 24px;
+      }
+      p{
+        margin-bottom: 0;
+        font-size: 16px;
+        line-height: 24px;
+      }
+    }
+  }
+  .white_paper_inner_wrap{
+    border-radius: 40px;
+    background-color: #F7FBFF;
+    border: 2px solid #68BA9D;
+    padding: 40px;
+    display: flex;
+    align-items: stretch;
+    gap: 40px;
+
+    @media ('max-width: 768px') {
+      flex-direction: column;
+    }
+    @media ('max-width: 767px') {
+      gap: 24px;
+      padding: 24px;
+    }
+    .content_side{
+      .pre_title{
+        font-size: 24px;
+        line-height: 32px;
+        color: #7C7C7C;
+        font-weight: 300;
+        margin-bottom: 8px;
+        display: block;
+        @media ('max-width: 767px') {
+          font-size: 16px;
+        }
+      }
+      .block_cs_title{
+        margin-bottom: 24px;
+        h2{
+          font-size: 32px;
+          line-height: 150%;
+          color: #231F20;
+          font-weight: 300;
+          @media ('max-width: 767px') {
+           font-size: 24px;
+          }
+          b{
+            font-weight: 700;
+          }
+        }
+      }
+      .block_cs_content{
+        margin-bottom: 40px;
+        p{
+          font-size: 16px;
+          line-height: 32px;
+          color: #231F20;
+          margin-bottom: 24px;
+          &:last-child{
+            margin-bottom: 0;
+          }
+        }
+      }
+    }
+    .image_side{
+      width: 480px;
+      flex-shrink: 0;
+      border-radius: 16px;
+      overflow: hidden;
+      object-fit: fill;
+      @media ('max-width: 768px') {
+        width: 100%;
+      }
+      img{
+        height: 100%;
+        width: 100%;
+      }
+    }
+  }
+}

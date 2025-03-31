@@ -1,0 +1,114 @@
+.case_studies_section{
+  padding-top: 120px;
+  @media ('max-width: 767px') {
+    padding-top: 64px;
+  }
+  .case_wrap{
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: stretch;
+    column-gap: 24px;
+    row-gap: 80px;
+    flex-wrap: wrap;
+    .blog_post_item{
+      width: calc(100% / 3 - 24px);
+      justify-content: space-between;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      //padding: 24px;
+      //background-color: #FFFFFF;
+      //-webkit-box-shadow: 8px 8px 40px 0px rgba(191, 208, 225, 0.5);
+      //-moz-box-shadow: 8px 8px 40px 0px rgba(191, 208, 225, 0.5);
+      //box-shadow: 8px 8px 40px 0px rgba(191, 208, 225, 0.5);
+      //border-radius: 24px;
+      //transition: all .2s ease-in-out;
+      &:hover{
+        //-webkit-box-shadow: 8px 8px 40px 0px rgba(191, 208, 225, 1);
+        //-moz-box-shadow: 8px 8px 40px 0px rgba(191, 208, 225, 1);
+        //box-shadow: 8px 8px 40px 0px rgba(191, 208, 225, 1);
+      }
+      @media ('max-width: 768px') {
+        width: calc(100% / 2 - 24px);
+      }
+      @media ('max-width: 767px') {
+        width: 100%;
+      }
+      .loop_post_image{
+        width: 100%;
+        height: 214px;
+        object-fit: cover;
+        border-radius: 24px;
+        overflow: hidden;
+        margin-bottom: 24px;
+        img{
+          width: 100%;
+          height: 100%;
+        }
+      }
+      .loop_post_title{
+        margin-bottom: 16px;
+        h2{
+          text-decoration: none;
+          color: #231F20;
+          font-size: 24px;
+          line-height: 40px;
+          font-weight: 700;
+        }
+      }
+      .loop_post_content{
+        margin-bottom: 24px;
+        p{
+          margin-bottom: 24px;
+          text-decoration: none;
+          color: #231F20;
+          font-size: 16px;
+          line-height: 24px;
+          font-weight: 400;
+          &:last-child{
+            margin-bottom: 0;
+          }
+        }
+      }
+
+      .lopp_post_link{
+        display: flex;
+        justify-content: center;
+        @media ('max-width: 767px') {
+         width: 100%;
+        }
+        a{
+          width: 160px;
+          height: 48px;
+          font-size: 16px;
+          font-weight: 600;
+          border-radius: 16px;
+          padding: 0;
+        }
+      }
+    }
+  }
+
+}
+.load_more_post{
+  padding-top: 80px;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  @media ('max-width: 767px') {
+   padding-left: 24px;
+    padding-right: 24px;
+    aspect-ratio: 431/64;
+    padding-top: 0;
+    margin-top: 80px;
+  }
+  a{
+    width: 316px;
+    @media ('max-width: 767px') {
+      width: 100%;
+      height: 100%;
+      border-radius: 24px;
+    }
+  }
+}

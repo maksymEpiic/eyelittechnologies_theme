@@ -1,0 +1,111 @@
+.whitepaper{
+  padding-top: 120px;
+  @media ('max-width: 767px') {
+    padding-top: 60px;
+  }
+
+  .whitepaper_wrap{
+    border-radius: 24px;
+    background: linear-gradient(230.77deg, rgb(47, 222, 160),rgb(140, 225, 195) 107.315%);
+    padding: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    &.bg_blue{
+      background: linear-gradient(135deg, rgb(0, 50, 109), rgb(1, 78, 169) 100%);
+      .whitepaper_right{
+        .block_title{
+          @media ('max-width: 768px') {
+            text-align: left;
+          }
+          h2{
+            color: #fff;
+          }
+        }
+        .text{
+          color: #fff;
+          @media ('max-width: 768px') {
+            text-align: left;
+          }
+        }
+      }
+    }
+    @media ('max-width: 768px') {
+      flex-direction: column;
+      align-items: center;
+    }
+    @media ('max-width: 767px') {
+      padding: 24px;
+    }
+    .whitepaper_left{
+      margin-right: 53px;
+      flex-shrink: 0;
+      max-width: 50%;
+      @media ('max-width: 768px') {
+        margin-right: 0;
+        margin-bottom: 40px;
+        max-width: unset;
+      }
+      .img_wrap{
+        //border-radius: 12px;
+        //background: rgba(255, 255, 255, 0.6);
+        overflow: hidden;
+        object-fit: cover;
+      }
+    }
+    .whitepaper_right{
+      @media ('max-width: 768px') {
+        text-align: center;
+      }
+      .block_title{
+        margin-bottom: 40px;
+        @media ('max-width: 768px') {
+          text-align: center;
+        }
+        h2{
+          color: rgb(35, 31, 32);
+          font-family: $secondFont;
+          font-size: 40px;
+          font-weight: 300;
+          line-height: 48px;
+          text-transform: uppercase;
+          strong{
+            font-weight: 700;
+          }
+          @media ('max-width: 768px') {
+            br{
+              display: none;
+            }
+          }
+          @media ('max-width: 767px') {
+            font-size: 24px;
+            line-height: 32px;
+          }
+        }
+      }
+      .text{
+        font-family: $font;
+        font-size: 20px;
+        font-weight: 400;
+        line-height: 32px;
+        margin-bottom: 40px;
+        @media ('max-width: 768px') {
+          text-align: center;
+        }
+        @media ('max-width: 767px') {
+          font-size: 16px;
+          line-height: 24px;
+        }
+      }
+      .btn{
+        font-family: $font;
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 48px;
+        @media ('max-width: 768px') {
+          text-align: center;
+        }
+      }
+    }
+  }
+}

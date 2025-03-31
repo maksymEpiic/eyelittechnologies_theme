@@ -1,0 +1,95 @@
+.adexa_banner{
+  padding-top: 80px;
+  @media ('max-width: 1023px') {
+    padding-top: 40px;
+  }
+  .adexa_banner_wrap{
+
+    box-shadow: 8px 8px 64px 0px rgba(191, 208, 225, 0.5);
+    border-radius: 40px;
+    &.color-blue{
+      background: radial-gradient(104.7% 156.02% at 3.47% 10.44%, #00326D 0.35%, #6E2789 100%);
+    }
+    &.color-green{
+      background: radial-gradient(104.7% 156.02% at 3.47% 10.44%, #00326D 0%, #37A480 100%);
+    }
+    &.color-orange{
+      background: radial-gradient(108.17% 583.66% at 0% 0%, #B12170 0%, #FCA311 100%);
+    }
+    .banner_bg_inner{
+      background-image: url("../images/banner_bg.svg");
+      background-repeat: no-repeat;
+      background-position: center center;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 40px;
+      @media ('max-width: 1023px') {
+        flex-direction: column;
+        gap: 24px;
+        padding: 24px;
+      }
+      .banner_left_side{
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 64px;
+        @media ('max-width: 1024px') {
+          gap: 34px;
+
+        }
+        @media ('max-width: 1023px') {
+          flex-direction: column;
+          gap: 24px;
+
+        }
+
+        .banner_title{
+          font-size: 40px;
+          line-height: 1.2;
+          color: #fff;
+          h2{
+            font-family: $fontloght;
+            b{
+              font-family: $font;
+            }
+          }
+          @media ('max-width: 1023px') {
+            text-align: center;
+          }
+        }
+      }
+      .banner_btn{
+        @media ('max-width: 1023px') {
+          width: 100%;
+        }
+        a{
+          height: 64px;
+          font-size: 20px;
+          line-height: 1.2;
+          background-color: rgba(255, 255, 255, 1);
+          border-radius: 16px;
+          color: rgba(64, 64, 64, 1);
+          font-weight: 600;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding-left: 60px;
+          padding-right: 60px;
+          transition: all 0.3s ease-in-out;
+          @media ('max-width: 1023px') {
+            width: 100%;
+            padding-left: 20px;
+            padding-right: 20px;
+          }
+          &:hover{
+            color: #fff;
+            background-color: rgba(252, 163, 17, 1);
+          }
+        }
+      }
+    }
+
+
+  }
+}

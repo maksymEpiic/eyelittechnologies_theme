@@ -1,0 +1,130 @@
+.search_result{
+  padding-top: 80px;
+  padding-bottom: 80px;
+  @media ('max-width: 768px') {
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+  .page_header{
+
+    text-align: center;
+    h1{
+      font-family: $font;
+      font-weight: 700;
+      font-size: 48px;
+      line-height: 1.2;
+      margin: 0;
+      @media ('max-width: 768px') {
+        font-size: 40px;
+      }
+    }
+  }
+}
+
+.result_section{
+  padding-bottom: 80px;
+  .search_result_wrap_header{
+    margin-bottom: 40px;
+    .result_title{
+      @media ('max-width: 768px') {
+        text-align: center;
+      }
+      span{
+        font-family: $font;
+        font-size: 24px;
+        line-height: 1.2;
+        font-weight: 400;
+        b{
+          font-weight: 700;
+        }
+      }
+    }
+
+  }
+  .search_result_wrap{
+    .single_wrap{
+      .single_search_result{
+        background-color: #fff;
+        box-shadow: 8px 8px 64px 0px rgba(191, 208, 225, 0.5);
+        padding: 24px;
+        border-radius: 24px;
+        margin-bottom: 24px;
+        .result_header{
+          font-weight: 600;
+          margin-bottom: 12px;
+        }
+        .result_content{
+          font-family: $font;
+          font-size: 16px;
+          font-weight: 400;
+          line-height: 24px;
+          margin-bottom: 24px;
+        }
+        .result_link{
+          text-align: right;
+          a{
+            color: rgba(104, 186, 157, 1);
+            text-decoration: underline;
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 24px;
+          }
+        }
+      }
+      &.hide{
+        display: none;
+      }
+    }
+    .load_more_array{
+      text-align: center;
+      margin-top: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      a{
+        width: 316px;
+      }
+    }
+  }
+}
+
+.no-results{
+  margin-top: 115px;
+  @media ('max-width: 768px') {
+    margin-top: 88px;
+  }
+  .no_result_ico{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
+  }
+  .no_title{
+    text-align: center;
+    margin-bottom: 10px;
+    span{
+      font-weight: 700;
+      font-size: 32px;
+      line-height: 48px;
+      font-family: $font;
+    }
+  }
+  .no_text{
+    margin-bottom: 40px;
+    text-align: center;
+    p{
+      color: rgba(93, 84, 86, 1);
+      font-weight: 400;
+      font-size: 20px;
+      line-height: 32px;
+      font-family: $font;
+    }
+  }
+  .no_link{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    a{
+      width: 316px;
+    }
+  }
+}

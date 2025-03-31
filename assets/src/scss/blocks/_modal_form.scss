@@ -1,0 +1,161 @@
+.modal_block{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  display: none;
+  .modal_overlay{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+    backdrop-filter: blur(16px);
+    opacity: 0;
+
+  }
+  .modal_form{
+    opacity: 0;
+    position: absolute;
+    z-index: 2;
+    background-color: #fff;
+    top: 20%;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 90%;
+    max-width: 560px;
+    border-radius: 40px;
+    box-shadow: 8px 8px 64px 0px rgba(0, 50, 109, 0.15);
+    padding: 40px 80px;
+    @media ('max-width: 767px') {
+      top: 10%;
+      padding: 30px 20px 20px;
+      border-radius: 20px;
+    }
+    .modal_wrap{
+      .close_modal{
+        position: absolute;
+        right: 24px;
+        top: 24px;
+        @media ('max-width: 767px') {
+          top: 10px;
+          right: 10px;
+        }
+        a{
+          width: 30px;
+          display: flex;
+          height: 30px;
+          background-color: rgba(239, 239, 239, 1);
+          border-radius: 50%;
+          justify-content: center;
+          align-items: center;
+          transition: all 0.3s ease-in-out;
+          svg{
+            path{
+              transition: all 0.3s ease-in-out;
+            }
+          }
+          &:hover{
+            background-color: #68BA9D;
+            svg{
+              path{
+                fill:#fff;
+              }
+            }
+          }
+        }
+      }
+      .modal_title{
+        margin-bottom: 40px;
+        span{
+          font-size: 24px;
+          line-height: 30px;
+          font-weight: 700;
+          font-family: $font;
+          text-align: center;
+          display: block;
+          @media ('max-width: 767px') {
+            font-size: 18px;
+            line-height: 24px;
+          }
+        }
+      }
+      .form{
+        margin-bottom: 24px;
+        .wpcf7-response-output{
+          display: none;
+        }
+        .wpcf7-form-control-wrap{
+          width: 100%;
+          margin-bottom: 16px;
+          display: block;
+          .wpcf7-not-valid-tip{
+            display: none;
+          }
+          input{
+            width: 100%;
+            height: 56px;
+            border-radius: 16px;
+            background-color: rgba(247, 247, 247, 1);
+            padding: 16px;
+            border: 1px solid rgba(247, 247, 247, 1);
+            &::placeholder{
+              color: rgba(46, 46, 46, 1);
+            }
+            &.wpcf7-not-valid{
+              border: 1px solid rgba(236, 86, 59, 1);
+              &::placeholder{
+                color: rgba(236, 86, 59, 1);
+              }
+            }
+
+          }
+        }
+        input[type="submit"]{
+          border: none;
+          width: 100%;
+          background-color: rgba(55, 164, 128, 1);
+          font-size: 20px;
+          color: #fff;
+          border-radius: 24px;
+          height: 64px;
+          margin-top: 24px;
+          cursor: pointer;
+        }
+      }
+      .privacy_link{
+        text-align: center;
+        a{
+          font-family: $font;
+          text-decoration: underline;
+          color: rgba(46, 46, 46, 1);
+          font-size: 16px;
+          line-height: 24px;
+          transition: all 0.3s ease-in-out;
+          &:hover{
+            color: #68BA9D;
+          }
+        }
+      }
+    }
+
+  }
+
+  &.show_modal{
+    display: block;
+    .modal_overlay{
+      opacity: 1;
+      transition: opacity 0.3s ease-in;
+    }
+    .modal_form{
+      opacity: 1;
+      transition: opacity 0.3s ease-in;
+
+    }
+  }
+}

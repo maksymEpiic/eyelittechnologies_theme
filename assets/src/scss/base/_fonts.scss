@@ -1,0 +1,36 @@
+//@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@font-face {
+  font-family: Segoe;
+  font-display: swap;
+  src: url("../fonts/Segoe-UI-Bold-Italic.woff2") format("woff2"),
+  url("../fonts/Segoe-UI-Bold-Italic.woff") format("woff");
+  font-weight: 600;
+  font-style: italic;
+}
+@font-face {
+  font-family: Segoe;
+  font-display: swap;
+  src: url("../fonts/Segoe-UI.woff2") format("woff2"),
+  url("../fonts/Segoe-UI.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: Segoe UI Light;
+  font-display: swap;
+  src: url("../fonts/segoeuil.woff2") format("woff2"),
+  url("../fonts/segoeuil.woff") format("woff");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: Segoe UI Black;
+  font-display: swap;
+  src: url("../fonts/segoeuib.woff2") format("woff2"),
+  url("../fonts/segoeuib.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+}
+

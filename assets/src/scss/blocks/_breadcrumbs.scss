@@ -1,0 +1,31 @@
+.breadcrumbs{
+  margin-bottom: 24px;
+  &.descktop_hide{
+    display: none;
+    @media ('max-width: 767px') {
+      margin-top: 75px;
+      margin-bottom: 40px;
+      padding-top: 24px;
+      padding-left: 24px;
+      padding-right: 24px;
+      display: block;
+    }
+  }
+  ul{
+
+    padding: 0;
+    margin: 0;
+
+    li{
+      display: contents;
+      a{
+        color: rgba(35, 31, 32, 1) !important;
+        font-weight: 300;
+      }
+      span{
+        font-weight: bold;
+      }
+    }
+  }
+
+}

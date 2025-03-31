@@ -1,0 +1,64 @@
+@use "sass:math";
+
+//*<Base>=======================================================================================================
+
+@import "base/fonts.scss";
+@import "base/function";
+@import "base/animation";
+@import "base/mixins";
+@import "base/variables";
+@import "base/reset";
+@import "base/common";
+@import "base/main-grid";
+
+
+//*</Base>=====================================================================================================
+
+//*<Components>================================================================================================
+
+@import "blocks/header";
+@import "blocks/banner";
+@import "blocks/services";
+@import "blocks/solutions";
+@import "blocks/trusted";
+@import "blocks/manufacturing";
+@import "blocks/industry";
+@import "blocks/result";
+@import "blocks/reviews";
+@import "blocks/ready_banner";
+@import "blocks/footer";
+@import "blocks/hero_blocks";
+@import "blocks/whitepaper";
+@import "blocks/key_futures";
+@import "blocks/scheduling";
+@import "blocks/sequencing";
+@import "blocks/text_block";
+@import "blocks/bwi";
+@import "blocks/about_brands";
+@import "blocks/buh";
+@import "blocks/capabilities";
+@import "blocks/case_study_block";
+@import "blocks/whitepaper_block";
+@import "blocks/result_block";
+@import "blocks/blog_main";
+@import "blocks/case-studies-page";
+@import "blocks/real_result";
+@import "blocks/key_compilation";
+@import "blocks/text_with_icons";
+@import "blocks/modal_form";
+@import "blocks/search_form";
+@import "blocks/serch_result";
+@import "blocks/adexa_banner";
+@import "blocks/breadcrumbs";
+@import "blocks/leadershippage";
+@import "blocks/partnershippage";
+@import "blocks/eroore_page";
+
+
+//*</Components>=================================================================================================
+
+//TODO<Blocks>=================================================================================================
+
+@import "blocks/contact-us";
+
+//TODO</Blocks>=================================================================================================

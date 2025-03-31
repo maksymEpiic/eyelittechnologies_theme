@@ -1,0 +1,107 @@
+.map_block{
+  padding-top: 120px;
+  @media ('max-width: 768px') {
+    padding-top: 80px;
+  }
+  .map_block_inner{
+    display: flex;
+    align-items: flex-start;
+    gap: 66px;
+    @media ('max-width: 768px') {
+      flex-direction: column-reverse;
+    }
+    .map{
+      width: 768px;
+      aspect-ratio: 768/470;
+      flex-shrink: 0;
+      position: relative;
+      svg{
+        height: auto;
+      }
+      @media ('max-width: 1024px') {
+        width: 50%;
+      }
+      @media ('max-width: 768px') {
+        width: 100%;
+      }
+      .adress_copied{
+        background-color: #1B5292;
+        display: inline-flex;
+        padding: 5px 10px;
+        justify-content: center;
+        align-items: center;
+        color: #FFF;
+        border-radius: 16px;
+        position: absolute;
+        white-space: nowrap;
+        left: 0;
+        top: 0;
+        opacity: 0;
+        transition: opacity 0.2s ease-in-out;
+        &.show{
+          opacity: 1;
+        }
+      }
+    }
+    .content_map{
+      .block_title{
+        margin-bottom: 40px;
+        h2{
+          font-family: $font;
+          font-size: 40px;
+          font-weight: 300;
+          line-height: 48px;
+          text-transform: none;
+          text-align: left;
+          margin-bottom: 24px;
+          @media ('max-width: 767px') {
+            font-size: 24px;
+            line-height: 32px;
+          }
+          strong{
+            font-weight: 700;
+          }
+          b{
+            font-weight: 700;
+          }
+        }
+      }
+
+    }
+  }
+  .india{
+    display: none;
+    cursor: pointer;
+  }
+  .india_triger{
+    cursor:pointer;
+  }
+  .usa{
+    display: none;
+    cursor: pointer;
+  }
+  .usa_triger{
+    cursor:pointer;
+  }
+  .canada{
+    display: none;
+    cursor: pointer;
+  }
+  .canada_triger{
+    cursor:pointer;
+  }
+  .canada_n{
+    display: none;
+    cursor: pointer;
+  }
+  .canada_n_triger{
+    cursor:pointer;
+  }
+  .uk{
+    display: none;
+    cursor: pointer;
+  }
+  .uk_triger{
+    cursor:pointer;
+  }
+}

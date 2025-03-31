@@ -1,0 +1,31 @@
+.site-wrapper {
+    display: flex;
+    flex-direction: column;
+    overflow: clip;
+}
+
+.container {
+    max-width: $maxWidthContainer;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 16px;
+
+    @media (max-width: 1280px) {
+        max-width: unset;
+    }
+}
+.large-container {
+    max-width: $largeMaxWidthContainer;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 16px;
+
+    @media (max-width: 1280px) {
+        max-width: unset;
+    }
+}
+
+.site-page {
+    flex: 1 1 auto;
+    position: relative;
+}

@@ -1,0 +1,101 @@
+.ready_banner {
+    padding-top: 120px;
+    @media ('max-width: 767px') {
+       padding-top: 80px;
+    }
+    .ready_banner_wrap{
+        background-color: rgba(0, 50, 109, 1);
+        border-radius: 40px;
+        padding: 40px 40px 0;
+        display: flex;
+        align-items: flex-end;
+        gap: 90px;
+        justify-content: space-between;
+        @media ('max-width: 1024px') {
+            gap: 40px;
+        }
+        @media ('max-width: 768px') {
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+        }
+        @media ('max-width: 767px') {
+            padding: 24px;
+            padding-bottom: 0;
+            gap: 24px;
+        }
+        .image_side{
+            width: 567px;
+            flex-shrink: 0;
+            overflow: hidden;
+            object-fit: fill;
+            @media ('max-width: 1024px') {
+                width: 430px;
+
+            }
+            @media ('max-width: 768px') {
+                width: 100%;
+            }
+            img{
+                height: 100%;
+                width: 100%;
+            }
+        }
+        .content_side{
+            .block_title{
+                margin-bottom: 40px;
+                @media ('max-width: 767px') {
+                    margin-bottom: 24px;
+                }
+                h2{
+                    font-family: $fontloght;
+                    font-size: 56px;
+                    line-height: 150%;
+                    color: #F7FBFF;
+                    font-weight: 300;
+                    @media ('max-width: 767px') {
+                       font-size: 40px;
+                    }
+                    b{
+                        font-family: $font;
+                        font-weight: 600;
+                    }
+                }
+            }
+            .block_content{
+                margin-bottom: 48px;
+                @media ('max-width: 767px') {
+                    margin-bottom: 36px;
+                }
+
+                p{
+                    font-size: 24px;
+                    line-height: 32px;
+                    color: #F7FBFF;
+                    font-weight: 400;
+                    @media ('max-width: 1024px') {
+                        br{
+                            display: none;
+                        }
+                    }
+                    @media ('max-width: 767px') {
+                        font-size: 20px;
+                    }
+                }
+            }
+            .block_link{
+                margin-bottom: 48px;
+                @media ('max-width: 768px') {
+                    display: flex;
+                    justify-content: center;
+                    margin-bottom: 32px;
+                }
+                a{
+                    &:hover{
+                        background-color: rgba(252, 163, 17, 1);
+                    }
+                }
+            }
+        }
+    }
+}
