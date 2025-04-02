@@ -7,82 +7,35 @@ jQuery(document).ready(function () {
        e.preventDefault();
    });
 
-    jQuery('.india_triger').on('mouseover', function (e) {
-        jQuery('.usa, .uk, .canada, .canada_n').hide();
-        jQuery('.india').show();
+    // Конфигурация для интерактивной карты
+    const mapConfig = {
+        triggers: {
+            india: { show: '.india', hide: '.usa, .uk, .canada, .canada_n' },
+            uk: { show: '.uk', hide: '.usa, .india, .canada, .canada_n' },
+            usa: { show: '.usa', hide: '.uk, .india, .canada, .canada_n' },
+            canada: { show: '.canada', hide: '.uk, .india, .usa, .canada_n' },
+            canada_n: { show: '.canada_n', hide: '.uk, .india, .usa, .canada' }
+        }
+    };
+
+    // Обработчики для интерактивной карты
+    Object.entries(mapConfig.triggers).forEach(([key, config]) => {
+        // Обработчик наведения
+        $(`.${key}_triger`).on('mouseover', () => {
+            $(config.hide).hide();
+            $(config.show).show();
+        });
+
+        // Обработчик клика
+        $(config.show).on('click', () => {
+            const data = $(`path.${key}`).data('adress');
+            navigator.clipboard.writeText(String(data));
+            
+            // Показываем уведомление
+            $('.adress_copied').addClass('show');
+            setTimeout(() => $('.adress_copied').removeClass('show'), 1000);
+        });
     });
-
-    jQuery('.uk_triger').on('mouseover', function (e) {
-        jQuery('.usa, .india, .canada, .canada_n').hide();
-        jQuery('.uk').show();
-    });
-
-    jQuery('.usa_triger').on('mouseover', function (e) {
-        jQuery('.uk, .india, .canada, .canada_n').hide();
-        jQuery('.usa').show();
-    });
-
-    jQuery('.canada_triger').on('mouseover', function (e) {
-        jQuery('.uk, .india, .usa, .canada_n').hide();
-        jQuery('.canada').show();
-    });
-
-    jQuery('.canada_n_triger').on('mouseover', function (e) {
-        jQuery('.uk, .india, .usa, .canada').hide();
-        jQuery('.canada_n').show();
-    });
-
-    jQuery('.india').on('click', function (e) {
-        jQuery('.adress_copied').addClass('show');
-        setTimeout(function() {
-            jQuery('.adress_copied').removeClass('show');
-        }, 1000);
-        let data = jQuery('path.india').data('adress');
-        navigator.clipboard.writeText(String(data));
-
-    });
-
-    jQuery('.usa').on('click', function (e) {
-        jQuery('.adress_copied').addClass('show');
-        setTimeout(function() {
-            jQuery('.adress_copied').removeClass('show');
-        }, 1000);
-        let data = jQuery('path.usa').data('adress');
-        console.log(String(data));
-        navigator.clipboard.writeText(String(data));
-    });
-
-    jQuery('.uk').on('click', function (e) {
-        jQuery('.adress_copied').addClass('show');
-        setTimeout(function() {
-            jQuery('.adress_copied').removeClass('show');
-        }, 1000);
-        let data = jQuery('path.uk').data('adress');
-        console.log(String(data));
-        navigator.clipboard.writeText(String(data));
-    });
-
-    jQuery('.canada').on('click', function (e) {
-        jQuery('.adress_copied').addClass('show');
-        setTimeout(function() {
-            jQuery('.adress_copied').removeClass('show');
-        }, 1000);
-        let data = jQuery('path.canada').data('adress');
-        console.log(String(data));
-        navigator.clipboard.writeText(String(data));
-    });
-
-    jQuery('.canada_n').on('click', function (e) {
-        jQuery('.adress_copied').addClass('show');
-        setTimeout(function() {
-            jQuery('.adress_copied').removeClass('show');
-        }, 1000);
-        let data = jQuery('path.canada_n').data('adress');
-        console.log(String(data));
-        navigator.clipboard.writeText(String(data));
-    });
-
-
 
     var urlParams = new URLSearchParams(window.location.search);
 

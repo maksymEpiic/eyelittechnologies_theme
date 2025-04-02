@@ -236,9 +236,9 @@ $query = new WP_Query( $args );
                                     'type'       => 'array',
                                 ) );
 
-                                if ( empty($links_array) ) {
-                                    return;
-                                }
+                                // if ( empty($links_array) ) {
+                                //     return;
+                                // }
 
                                 $custom_links = array();
                                 foreach ( $links_array as $link_html ) {

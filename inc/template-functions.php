@@ -164,9 +164,9 @@ function ajax_filter_posts() {
                 'type'       => 'array',
             ) );
 
-            if ( empty($links_array) ) {
-                return;
-            }
+            // if ( empty($links_array) ) {
+            //     return;
+            // }
 
             $custom_links = array();
             foreach ( $links_array as $link_html ) {
