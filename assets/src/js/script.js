@@ -21,37 +21,81 @@ jQuery(document).ready(function () {
     // Обработчики для интерактивной карты
     Object.entries(mapConfig.triggers).forEach(([key, config]) => {
         // Обработчик наведения
-        $(`.${key}_triger`).on('mouseover', () => {
-            $(config.hide).hide();
-            $(config.show).show();
+        jQuery(`.${key}_triger`).on('mouseover', () => {
+            jQuery(config.hide).hide();
+            jQuery(config.show).show();
         });
 
         // Обработчик клика
-        $(config.show).on('click', () => {
-            const data = $(`path.${key}`).data('adress');
+        jQuery(config.show).on('click', () => {
+            const data = jQuery(`path.${key}`).data('adress');
             navigator.clipboard.writeText(String(data));
             
             // Показываем уведомление
-            $('.adress_copied').addClass('show');
-            setTimeout(() => $('.adress_copied').removeClass('show'), 1000);
+            jQuery('.adress_copied').addClass('show');
+            setTimeout(() => jQuery('.adress_copied').removeClass('show'), 1000);
         });
     });
 
     var urlParams = new URLSearchParams(window.location.search);
-
-    if(urlParams.has('content_type')) {
+    if (urlParams.has('content_type')) {
         var types = urlParams.get('content_type').split(',');
-        types.forEach(function(val) {
+        types.forEach(function (val) {
             jQuery('.content-type_filter input#' + val).prop('checked', true);
         });
     }
-
-    if(urlParams.has('industry')) {
+    if (urlParams.has('industry')) {
         var inds = urlParams.get('industry').split(',');
-        inds.forEach(function(val) {
+        inds.forEach(function (val) {
             jQuery('.industry_filter input#' + val).prop('checked', true);
         });
     }
+
+    function ajaxGetCategoryCounts() {
+        var content_types = [];
+        var industries = [];
+        jQuery('.content-type_filter input:checked').each(function () {
+            content_types.push(jQuery(this).attr('id'));
+        });
+        jQuery('.industry_filter input:checked').each(function () {
+            industries.push(jQuery(this).attr('id'));
+        });
+
+        jQuery.ajax({
+            url: ajax.ajaxurl, // ajax.ajaxurl должен быть локализован через wp_localize_script()
+            type: 'POST',
+            data: {
+                action: 'get_category_counts',
+                content_type: content_types,
+                industry: industries
+            },
+            success: function (response) {
+                if (response.success) {
+                    // Обновляем счетчики для таксономии industry
+                    jQuery('.industry_filter li').each(function () {
+                        var slug = jQuery(this).find('input').attr('id');
+                        var count = response.data.industry[slug] || 0;
+                        jQuery(this).find('.posts_count').text(count);
+                    });
+                    // Обновляем счетчики для таксономии content-type
+                    jQuery('.content-type_filter li').each(function () {
+                        var slug = jQuery(this).find('input').attr('id');
+                        var count = response.data.content_type[slug] || 0;
+                        jQuery(this).find('.posts_count').text(count);
+                    });
+                }
+            }
+        });
+    }
+
+    // Вызываем обновление счетчиков при изменении любого из фильтров
+    jQuery('.filter_list input').on('change', function () {
+        ajaxGetCategoryCounts();
+        ajaxFilterPosts(1);
+    });
+
+    // Также можно вызывать эту функцию при первичной загрузке, если нужно обновить счетчики
+    ajaxGetCategoryCounts();
 
     function ajaxFilterPosts(paged) {
         var content_type = [];
@@ -113,9 +157,9 @@ jQuery(document).ready(function () {
     //     ajaxFilterPosts(1);
     // });
 
-    jQuery('.filter_list input').on('change', function() {
-        ajaxFilterPosts(1);
-    });
+    // jQuery('.filter_list input').on('change', function() {
+    //     ajaxFilterPosts(1);
+    // });
 
     jQuery('.filter_on').on('click', function (e) {
         e.preventDefault();

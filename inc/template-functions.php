@@ -98,6 +98,7 @@ function ajax_filter_posts() {
     );
 
     // Формируем tax_query, если заданы значения для таксономий
+    // Формируем tax_query, если заданы значения для таксономий
     $tax_query = array();
     if ( ! empty( $_POST['content_type'] ) && is_array( $_POST['content_type'] ) ) {
         $tax_query[] = array(
@@ -114,9 +115,9 @@ function ajax_filter_posts() {
         );
     }
     if ( ! empty( $tax_query ) ) {
-        // Если заданы оба фильтра – условие AND
         $args['tax_query'] = array_merge( array( 'relation' => 'AND' ), $tax_query );
     }
+
     $blog_page_id  = get_option('page_for_posts');
     $blog_page_url = get_permalink( $blog_page_id );
 
@@ -164,9 +165,9 @@ function ajax_filter_posts() {
                 'type'       => 'array',
             ) );
 
-            // if ( empty($links_array) ) {
-            //     return;
-            // }
+//            if ( empty($links_array) ) {
+//                return;
+//            }
 
             $custom_links = array();
             foreach ( $links_array as $link_html ) {
@@ -367,6 +368,90 @@ function ultra_navigation_markup_filter( $template, $class ) {
     return str_replace( 'h2', 'span', $template );
 }
 add_filter( 'navigation_markup_template', 'ultra_navigation_markup_filter', 10, 2 );
+
+
+function ajax_get_category_counts() {
+    // Получаем выбранные значения таксономий из POST
+    $selected_content_types = ! empty($_POST['content_type']) && is_array($_POST['content_type'])
+        ? array_map('sanitize_text_field', $_POST['content_type'])
+        : array();
+    $selected_industries = ! empty($_POST['industry']) && is_array($_POST['industry'])
+        ? array_map('sanitize_text_field', $_POST['industry'])
+        : array();
+
+    $results = array(
+        'industry'     => array(), // для таксономии industry – подсчет на основе выбранных content-type
+        'content_type' => array(), // для таксономии content-type – подсчет на основе выбранных industry
+    );
+
+    // 1. Подсчет для таксономии industry:
+    // Если выбраны content-type, фильтруем посты по ним, иначе выбираем все посты
+    $args = array(
+        'post_type'      => 'post',
+        'post_status'    => 'publish',
+        'posts_per_page' => -1,
+    );
+    if ( ! empty( $selected_content_types ) ) {
+        $args['tax_query'] = array(
+            array(
+                'taxonomy' => 'content-type',
+                'field'    => 'slug',
+                'terms'    => $selected_content_types,
+            ),
+        );
+    }
+    $query = new WP_Query( $args );
+    $post_ids = wp_list_pluck( $query->posts, 'ID' );
+
+    // Получаем все термины таксономии industry
+    $industry_terms = get_terms( array(
+        'taxonomy'   => 'industry',
+        'hide_empty' => false,
+    ) );
+    if ( ! is_wp_error( $industry_terms ) && ! empty( $industry_terms ) ) {
+        foreach ( $industry_terms as $term ) {
+            // Получаем ID постов, привязанных к этому термину
+            $term_post_ids = get_objects_in_term( $term->term_id, 'industry' );
+            // Считаем пересечение с выборкой постов (с выбранными content-type)
+            $intersection = array_intersect( $post_ids, $term_post_ids );
+            $results['industry'][ $term->slug ] = count( $intersection );
+        }
+    }
+
+    // 2. Подсчет для таксономии content-type:
+    $args2 = array(
+        'post_type'      => 'post',
+        'post_status'    => 'publish',
+        'posts_per_page' => -1,
+    );
+    if ( ! empty( $selected_industries ) ) {
+        $args2['tax_query'] = array(
+            array(
+                'taxonomy' => 'industry',
+                'field'    => 'slug',
+                'terms'    => $selected_industries,
+            ),
+        );
+    }
+    $query2 = new WP_Query( $args2 );
+    $post_ids2 = wp_list_pluck( $query2->posts, 'ID' );
+
+    $content_terms = get_terms( array(
+        'taxonomy'   => 'content-type',
+        'hide_empty' => false,
+    ) );
+    if ( ! is_wp_error( $content_terms ) && ! empty( $content_terms ) ) {
+        foreach ( $content_terms as $term ) {
+            $term_post_ids = get_objects_in_term( $term->term_id, 'content-type' );
+            $intersection = array_intersect( $post_ids2, $term_post_ids );
+            $results['content_type'][ $term->slug ] = count( $intersection );
+        }
+    }
+
+    wp_send_json_success( $results );
+}
+add_action( 'wp_ajax_get_category_counts', 'ajax_get_category_counts' );
+add_action( 'wp_ajax_nopriv_get_category_counts', 'ajax_get_category_counts' );
 
 
 

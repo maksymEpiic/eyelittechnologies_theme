@@ -236,104 +236,104 @@ $query = new WP_Query( $args );
                                     'type'       => 'array',
                                 ) );
 
-                                // if ( empty($links_array) ) {
-                                //     return;
-                                // }
+                                 if ( !empty($links_array) ) {
+                                     $custom_links = array();
+                                     foreach ( $links_array as $link_html ) {
 
-                                $custom_links = array();
-                                foreach ( $links_array as $link_html ) {
+                                         // Если элемент содержит "prev page-numbers", принудительно генерируем стрелку "Предыдущая" как ссылку
+                                         if ( strpos( $link_html, 'prev page-numbers' ) !== false || strpos( $link_html, '&lt;' ) !== false ) {
+                                             $prev_page = ($paged > 1) ? $paged - 1 : 1;
+                                             $href = ($prev_page == 1)
+                                                 ? trailingslashit( $blog_page_url )
+                                                 : trailingslashit( $blog_page_url ) . 'page/' . $prev_page . '/';
+                                             $generated = '<li class="prev"><a href="' . esc_url( $href ) . '" tabindex="0" role="button" aria-disabled="false" aria-label="Previous page" rel="prev">&lt;</a></li>';
+                                             $custom_links[] = $generated;
+                                             continue;
+                                         }
+                                         // Если элемент содержит "next page-numbers", генерируем стрелку "Следующая"
+                                         if ( strpos( $link_html, 'next page-numbers' ) !== false || strpos( $link_html, '&gt;' ) !== false ) {
+                                             $next_page = ($paged < $query->max_num_pages) ? $paged + 1 : $query->max_num_pages;
+                                             $href = trailingslashit( $blog_page_url ) . 'page/' . $next_page . '/';
+                                             $generated = '<li class="next"><a href="' . esc_url( $href ) . '" tabindex="0" role="button" aria-disabled="false" aria-label="Next page" rel="next">&gt;</a></li>';
+                                             $custom_links[] = $generated;
+                                             continue;
+                                         }
 
-                                    // Если элемент содержит "prev page-numbers", принудительно генерируем стрелку "Предыдущая" как ссылку
-                                    if ( strpos( $link_html, 'prev page-numbers' ) !== false || strpos( $link_html, '&lt;' ) !== false ) {
-                                        $prev_page = ($paged > 1) ? $paged - 1 : 1;
-                                        $href = ($prev_page == 1)
-                                            ? trailingslashit( $blog_page_url )
-                                            : trailingslashit( $blog_page_url ) . 'page/' . $prev_page . '/';
-                                        $generated = '<li class="prev"><a href="' . esc_url( $href ) . '" tabindex="0" role="button" aria-disabled="false" aria-label="Previous page" rel="prev">&lt;</a></li>';
-                                        $custom_links[] = $generated;
-                                        continue;
-                                    }
-                                    // Если элемент содержит "next page-numbers", генерируем стрелку "Следующая"
-                                    if ( strpos( $link_html, 'next page-numbers' ) !== false || strpos( $link_html, '&gt;' ) !== false ) {
-                                        $next_page = ($paged < $query->max_num_pages) ? $paged + 1 : $query->max_num_pages;
-                                        $href = trailingslashit( $blog_page_url ) . 'page/' . $next_page . '/';
-                                        $generated = '<li class="next"><a href="' . esc_url( $href ) . '" tabindex="0" role="button" aria-disabled="false" aria-label="Next page" rel="next">&gt;</a></li>';
-                                        $custom_links[] = $generated;
-                                        continue;
-                                    }
+                                         // Если элемент содержит <span>, это либо текущая страница, либо многоточие
+                                         if ( strpos( $link_html, '<span' ) !== false ) {
+                                             // Если это текущая страница
+                                             if ( strpos( $link_html, 'current' ) !== false ) {
+                                                 $class        = 'class="selected"';
+                                                 $aria_current = 'aria-current="page"';
+                                                 $rel          = 'rel="canonical"';
+                                                 // Здесь делаем текущую страницу кликабельной, поэтому tabindex="0"
+                                                 $tabindex     = '0';
+                                                 if ( preg_match( '/<span[^>]*>([^<]+)<\/span>/', $link_html, $m ) ) {
+                                                     $text = $m[1];
+                                                 } else {
+                                                     $text = '?';
+                                                 }
+                                                 $aria_label = 'aria-label="Page ' . $text . ' is your current page"';
+                                                 // Формируем URL для текущей страницы: для 1-й страницы используем базовый URL
+                                                 $page_num = intval( $text );
+                                                 if ( $page_num === 1 ) {
+                                                     $current_href = trailingslashit( $blog_page_url );
+                                                 } else {
+                                                     $current_href = trailingslashit( $blog_page_url ) . 'page/' . $page_num . '/';
+                                                 }
+                                                 $generated = '<li ' . $class . '><a href="' . esc_url( $current_href ) . '" ' . $aria_current . ' ' . $aria_label . ' ' . $rel . ' tabindex="' . $tabindex . '">' . $text . '</a></li>';
+                                             } else {
+                                                 // Если это многоточие (например, "…")
+                                                 $dots_text = strip_tags($link_html);
+                                                 $generated = '<li><span>' . $dots_text . '</span></li>';
+                                             }
+                                         } else {
+                                             // Элемент – это ссылка <a> (обычная числовая страница)
+                                             $href = '#';
+                                             $text = '';
+                                             if ( preg_match( '/href="([^"]+)"/', $link_html, $href_m ) ) {
+                                                 $href = $href_m[1];
+                                             }
+                                             if ( preg_match( '/>([^<]+)<\/a>/', $link_html, $text_m ) ) {
+                                                 $text = $text_m[1];
+                                             }
+                                             $aria_label = 'aria-label="Page ' . $text . '"';
+                                             $generated = '<li><a href="' . esc_url( $href ) . '" tabindex="0" aria-disabled="false" ' . $aria_label . '>' . $text . '</a></li>';
+                                         }
 
-                                    // Если элемент содержит <span>, это либо текущая страница, либо многоточие
-                                    if ( strpos( $link_html, '<span' ) !== false ) {
-                                        // Если это текущая страница
-                                        if ( strpos( $link_html, 'current' ) !== false ) {
-                                            $class        = 'class="selected"';
-                                            $aria_current = 'aria-current="page"';
-                                            $rel          = 'rel="canonical"';
-                                            // Здесь делаем текущую страницу кликабельной, поэтому tabindex="0"
-                                            $tabindex     = '0';
-                                            if ( preg_match( '/<span[^>]*>([^<]+)<\/span>/', $link_html, $m ) ) {
-                                                $text = $m[1];
-                                            } else {
-                                                $text = '?';
-                                            }
-                                            $aria_label = 'aria-label="Page ' . $text . ' is your current page"';
-                                            // Формируем URL для текущей страницы: для 1-й страницы используем базовый URL
-                                            $page_num = intval( $text );
-                                            if ( $page_num === 1 ) {
-                                                $current_href = trailingslashit( $blog_page_url );
-                                            } else {
-                                                $current_href = trailingslashit( $blog_page_url ) . 'page/' . $page_num . '/';
-                                            }
-                                            $generated = '<li ' . $class . '><a href="' . esc_url( $current_href ) . '" ' . $aria_current . ' ' . $aria_label . ' ' . $rel . ' tabindex="' . $tabindex . '">' . $text . '</a></li>';
-                                        } else {
-                                            // Если это многоточие (например, "…")
-                                            $dots_text = strip_tags($link_html);
-                                            $generated = '<li><span>' . $dots_text . '</span></li>';
-                                        }
-                                    } else {
-                                        // Элемент – это ссылка <a> (обычная числовая страница)
-                                        $href = '#';
-                                        $text = '';
-                                        if ( preg_match( '/href="([^"]+)"/', $link_html, $href_m ) ) {
-                                            $href = $href_m[1];
-                                        }
-                                        if ( preg_match( '/>([^<]+)<\/a>/', $link_html, $text_m ) ) {
-                                            $text = $text_m[1];
-                                        }
-                                        $aria_label = 'aria-label="Page ' . $text . '"';
-                                        $generated = '<li><a href="' . esc_url( $href ) . '" tabindex="0" aria-disabled="false" ' . $aria_label . '>' . $text . '</a></li>';
-                                    }
+                                         $custom_links[] = $generated;
+                                     }
 
-                                    $custom_links[] = $generated;
-                                }
+                                     // Опционально: Если необходимо добавить rel="prev" и rel="next" для соседних ссылок числовой пагинации,
+                                     // можно найти индекс текущей страницы (по наличию aria-current) и добавить атрибуты к соседним элементам.
+                                     $current_index = null;
+                                     for ( $i = 0; $i < count($custom_links); $i++ ) {
+                                         if ( strpos( $custom_links[$i], 'aria-current="page"' ) !== false ) {
+                                             $current_index = $i;
+                                             break;
+                                         }
+                                     }
+                                     if ( $current_index !== null ) {
+                                         if ( $current_index > 0 ) {
+                                             if ( strpos( $custom_links[$current_index - 1], '<a' ) !== false && strpos( $custom_links[$current_index - 1], 'rel="prev"' ) === false ) {
+                                                 $custom_links[$current_index - 1] = preg_replace('/<a /', '<a rel="prev" ', $custom_links[$current_index - 1]);
+                                             }
+                                         }
+                                         if ( $current_index < count($custom_links) - 1 ) {
+                                             if ( strpos( $custom_links[$current_index + 1], '<a' ) !== false && strpos( $custom_links[$current_index + 1], 'rel="next"' ) === false ) {
+                                                 $custom_links[$current_index + 1] = preg_replace('/<a /', '<a rel="next" ', $custom_links[$current_index + 1]);
+                                             }
+                                         }
+                                     }
 
-                                // Опционально: Если необходимо добавить rel="prev" и rel="next" для соседних ссылок числовой пагинации,
-                                // можно найти индекс текущей страницы (по наличию aria-current) и добавить атрибуты к соседним элементам.
-                                $current_index = null;
-                                for ( $i = 0; $i < count($custom_links); $i++ ) {
-                                    if ( strpos( $custom_links[$i], 'aria-current="page"' ) !== false ) {
-                                        $current_index = $i;
-                                        break;
-                                    }
-                                }
-                                if ( $current_index !== null ) {
-                                    if ( $current_index > 0 ) {
-                                        if ( strpos( $custom_links[$current_index - 1], '<a' ) !== false && strpos( $custom_links[$current_index - 1], 'rel="prev"' ) === false ) {
-                                            $custom_links[$current_index - 1] = preg_replace('/<a /', '<a rel="prev" ', $custom_links[$current_index - 1]);
-                                        }
-                                    }
-                                    if ( $current_index < count($custom_links) - 1 ) {
-                                        if ( strpos( $custom_links[$current_index + 1], '<a' ) !== false && strpos( $custom_links[$current_index + 1], 'rel="next"' ) === false ) {
-                                            $custom_links[$current_index + 1] = preg_replace('/<a /', '<a rel="next" ', $custom_links[$current_index + 1]);
-                                        }
-                                    }
-                                }
+                                     echo '<nav><ul role="navigation" aria-label="Pagination">';
+                                     foreach ( $custom_links as $link ) {
+                                         echo $link;
+                                     }
+                                     echo '</ul></nav>';
+                                 }
 
-                                echo '<nav><ul role="navigation" aria-label="Pagination">';
-                                foreach ( $custom_links as $link ) {
-                                    echo $link;
-                                }
-                                echo '</ul></nav>';
+
                                 ?>
                             </div>
                         <?php else : ?>
