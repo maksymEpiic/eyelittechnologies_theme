@@ -380,3 +380,126 @@ document.addEventListener('DOMContentLoaded', function() {
 
     });
 });
+
+(function() {
+    tinymce.create('tinymce.plugins.cta_shortcode_button', {
+        init: function(editor, url) {
+            editor.addButton('cta_shortcode_button', {
+                title: 'Insert CTA',
+                text: 'CTA',
+                onclick: function() {
+                    editor.insertContent('[cta] CTA inner here [/cta]');
+                }
+            });
+        },
+        createControl: function(n, cm) {
+            return null;
+        },
+        getInfo: function() {
+            return {
+                longname: "CTA Block Shortcode Button",
+                author: "Onfim",
+                version: "1.0"
+            };
+        }
+    });
+    tinymce.PluginManager.add('cta_shortcode_button', tinymce.plugins.cta_shortcode_button);
+
+    tinymce.create('tinymce.plugins.cta_btn_shortcode_button', {
+        init: function(editor, url) {
+            editor.addButton('cta_btn_shortcode_button', {
+                title: 'CTA button',
+                text: 'CTA button',
+                onclick: function() {
+                    editor.windowManager.open({
+                        title: 'Insert CTA button',
+                        body: [
+                            {type: 'textbox', name: 'href', label: 'URL', value: '#'},
+                            {type: 'textbox', name: 'text', label: 'Link Text', value: 'Click here'}
+                        ],
+                        onsubmit: function(e) {
+                            editor.insertContent('[cta_button href="' + e.data.href + '" text="' + e.data.text + '"]');
+                        }
+                    });
+                }
+            });
+        },
+        createControl: function(n, cm) {
+            return null;
+        },
+        getInfo: function() {
+            return {
+                longname: "CTA Link Shortcode Button",
+                author: "Onfim",
+                version: "1.0"
+            };
+        }
+    });
+    tinymce.PluginManager.add('cta_btn_shortcode_button', tinymce.plugins.cta_btn_shortcode_button);
+})();
+
+(function() {
+    tinymce.create('tinymce.plugins.cta_title_shortcode_button', {
+        init: function(editor, url) {
+            editor.addButton('cta_title_shortcode_button', {
+                title: 'Insert CTA Title',
+                text: 'CTA Title',
+                onclick: function() {
+                    editor.windowManager.open({
+                        title: 'Insert CTA Title',
+                        body: [
+                            {type: 'textbox', name: 'content', label: 'Text', value: 'Your title here'}
+                        ],
+                        onsubmit: function(e) {
+                            editor.insertContent('[cta_title]' + e.data.content + '[/cta_title]');
+                        }
+                    });
+                }
+            });
+        },
+        createControl: function(n, cm) {
+            return null;
+        },
+        getInfo: function() {
+            return {
+                longname: "CTA Title Shortcode Button",
+                author: "Onfim",
+                version: "1.0"
+            };
+        }
+    });
+    tinymce.PluginManager.add('cta_title_shortcode_button', tinymce.plugins.cta_title_shortcode_button);
+})();
+
+(function() {
+    tinymce.create('tinymce.plugins.cta_subtitle_shortcode_button', {
+        init: function(editor, url) {
+            editor.addButton('cta_subtitle_shortcode_button', {
+                title: 'Insert CTA Subtitle',
+                text: 'CTA Subtitle',
+                onclick: function() {
+                    editor.windowManager.open({
+                        title: 'Insert CTA Subtitle',
+                        body: [
+                            {type: 'textbox', name: 'content', label: 'Text', value: 'Your subtitle here'}
+                        ],
+                        onsubmit: function(e) {
+                            editor.insertContent('[cta_subtitle]' + e.data.content + '[/cta_subtitle]');
+                        }
+                    });
+                }
+            });
+        },
+        createControl: function(n, cm) {
+            return null;
+        },
+        getInfo: function() {
+            return {
+                longname: "CTA Subtitle Shortcode Button",
+                author: "Onfim",
+                version: "1.0"
+            };
+        }
+    });
+    tinymce.PluginManager.add('cta_subtitle_shortcode_button', tinymce.plugins.cta_subtitle_shortcode_button);
+})();

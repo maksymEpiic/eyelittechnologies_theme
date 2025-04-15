@@ -455,5 +455,46 @@ add_action( 'wp_ajax_nopriv_get_category_counts', 'ajax_get_category_counts' );
 
 
 
+function cta_shortcode_function($atts, $content = null) {
+    return '<div class="cta_blog_block">' . do_shortcode($content) . '</div>';
+}
+add_shortcode('cta', 'cta_shortcode_function');
+
+function cta_button_shortcode_function($atts) {
+    $atts = shortcode_atts(array(
+        'href' => '#',
+        'text' => 'Click here'
+    ), $atts);
+    return '<a target="_blank" class="btn_green btn" href="' . esc_url($atts['href']) . '">' . esc_html($atts['text']) . '</a>';
+}
+add_shortcode('cta_button', 'cta_button_shortcode_function');
+
+function cta_title_shortcode_function($atts, $content = null) {
+    return '<span class="cta_title">' . do_shortcode($content) . '</span>';
+}
+add_shortcode('cta_title', 'cta_title_shortcode_function');
+
+function cta_subtitle_shortcode_function($atts, $content = null) {
+    return '<span class="cta_subtitle">' . do_shortcode($content) . '</span>';
+}
+add_shortcode('cta_subtitle', 'cta_subtitle_shortcode_function');
+
+function add_mce_buttons($buttons) {
+    array_push($buttons, "cta_shortcode_button", "cta_btn_shortcode_button", "cta_title_shortcode_button", "cta_subtitle_shortcode_button");
+    return $buttons;
+}
+add_filter("mce_buttons", "add_mce_buttons");
+
+function add_mce_plugins($plugin_array) {
+    $plugin_array['cta_shortcode_button'] = get_template_directory_uri() . '/assets/dist/js/script.js';
+    $plugin_array['cta_btn_shortcode_button'] = get_template_directory_uri() . '/assets/dist/js/script.js';
+    $plugin_array['cta_title_shortcode_button'] = get_template_directory_uri() . '/assets/dist/js/script.js';
+    $plugin_array['cta_subtitle_shortcode_button'] = get_template_directory_uri() . '/assets/dist/js/script.js';
+    return $plugin_array;
+}
+add_filter("mce_external_plugins", "add_mce_plugins");
+
+
+
 
 
