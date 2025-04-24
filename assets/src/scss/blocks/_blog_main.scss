@@ -253,6 +253,7 @@
         display: flex;
         flex-direction: column;
         align-items: flex-start;
+        margin-bottom: 24px;
         @media ('max-width: 767px') {
           padding: 24px;
           border-radius: 24px;
@@ -339,12 +340,12 @@
         }
       }
       h2{
-        font-size: 40px;
-        line-height: 48px;
+        font-size: 16px;
+        line-height: 24px;
         font-weight: 300;
         margin-bottom: 24px;
         @media ('max-width: 768px') {
-          font-size: 24px;
+          font-size: 16px;
         }
         b{
           font-weight: 700;
@@ -373,16 +374,20 @@
         font-weight: 700;
 
       }
-      h2,
+      h2,h3,h4,h5{
+        font-size: 16px;
+        line-height: 24px;
+        margin-bottom: 24px;
+      }
       .text-size-h2 { font-size: 2.44em; }
 
-      h3,
+
       .text-size-h3 { font-size: 1.95em; }
 
-      h4,
+
       .text-size-h4 { font-size: 1.56em; }
 
-      h5,
+
       .text-size-h5 { font-size: 1.25em; }
 
       .text-caption { font-size: 0.8em; }

@@ -1,0 +1,226 @@
+.form_block{
+  background-color: #FFFFFF;
+  border-radius: 40px;
+  padding: 31px 24px 24px;
+  -webkit-box-shadow: 8px 8px 64px 0px rgba(191,208,225,0.5);
+  -moz-box-shadow: 8px 8px 64px 0px rgba(191,208,225,0.5);
+  box-shadow: 8px 8px 64px 0px rgba(191,208,225,0.5);
+
+  .nf-before-form-content{
+    display: none;
+  }
+  .wpcf7{
+      form{
+        .wpcf7-response-output{
+          border: none;
+          padding: 0;
+        }
+      }
+  }
+
+  p{
+    br{
+      display: none;
+    }
+    .policy{
+      font-size: 14px;
+      display: block;
+      margin-bottom: 20px;
+      font-family: $font;
+    }
+
+    .wpcf7-spinner{
+      display: none;
+    }
+    [type="submit"]{
+      font-family: $secondFont;
+      border-radius: 16px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 256px;
+      height: 50px;
+      background-color: $akcentColor;
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 48px;
+      color: #fff;
+      padding: 0;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+    label{
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-start;
+      gap: 5px;
+      text-align: left;
+      flex-direction: column;
+      margin-bottom: 15px;
+      & > span{
+        display: block;
+        font-family: $font;
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 24px;
+        text-align: center;
+        span{
+          color: #EC563B;
+        }
+      }
+      .wpcf7-form-control-wrap{
+        width: 100%;
+        text-align: left;
+        textarea{
+          box-sizing: border-box;
+          border: 1px solid rgb(203, 214, 226);
+          border-radius: 16px;
+          box-shadow: 8px 8px 64px 0px rgba(0, 50, 109, 0.1);
+          background: #F7F7F7;
+          color: #2E2E2E;
+          width: 100%;
+          min-height: 50px;
+          max-height: 100px;
+          resize: none;
+          padding: 10px 15px;
+        }
+        input{
+          box-sizing: border-box;
+          border: 1px solid rgb(203, 214, 226);
+          border-radius: 16px;
+          box-shadow: 8px 8px 64px 0px rgba(0, 50, 109, 0.1);
+          background: #F7F7F7;
+          color: #2E2E2E;
+          width: 100%;
+          min-height: 50px;
+          padding-left: 15px;
+          padding-right: 15px;
+          &::placeholder {
+            color:#2E2E2E;
+          }
+          &.wpcf7-not-valid{
+            color: #EC563B;
+            border: 1px solid #EC563B;
+            &::placeholder {
+              color:#EC563B;
+
+            }
+          }
+
+        }
+      }
+    }
+  }
+  .nf-form-content{
+    .nf-error.field-wrap{
+      .nf-field-element{
+        input{
+          box-sizing: border-box;
+          border: 1px solid transparent;
+          border-radius: 16px;
+          box-shadow: 8px 8px 64px 0px rgba(0, 50, 109, 0.1);
+          background: #F7F7F7;
+          color: #2E2E2E;
+          width: 100%;
+          min-height: 50px;
+          &::placeholder {
+            color:#2E2E2E;
+          }
+          &.wpcf7-not-valid{
+            color: #EC563B;
+            border: 1px solid #EC563B;
+            &::placeholder {
+              color:#EC563B;
+
+            }
+          }
+        }
+        &:after{
+          display: none;
+        }
+      }
+    }
+    nf-fields-wrap{
+
+      nf-field{
+        display: inline-block;
+        width: 100%;
+        .nf-field-container{
+          margin-bottom: 16px;
+          &.hidden-container{
+            display: none;
+          }
+        }
+        &:nth-child(1){
+          width: 48%;
+          @media ('max-width: 767px') {
+            width: 100%;
+          }
+        }
+        &:nth-child(2){
+          width: 48%;
+          float: right;
+          @media ('max-width: 767px') {
+            width: 100%;
+            float: none;
+          }
+        }
+        .nf-field-label{
+          display: none;
+        }
+        .nf-field-element{
+          &:after{
+            display: none;
+          }
+          input{
+            border-radius: 8px;
+            box-shadow: 8px 8px 64px 0px rgba(0, 50, 109, 0.1);
+            background: rgb(255, 255, 255);
+            font-family: $font;
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 32px;
+            padding: 20px 24px;
+            height: 64px;
+            border: none;
+            &[type="submit"]{
+              font-family: $secondFont;
+              border-radius: 8px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              width: 256px;
+              height: 64px;
+              background-color: $akcentColor;
+              font-size: 20px;
+              font-weight: 700;
+              line-height: 48px;
+              color: #fff;
+              padding: 0;
+              cursor: pointer;
+              &:hover {
+                background: rgb(0, 255, 165);
+                color: rgb(35, 31, 32);
+              }
+            }
+          }
+          textarea{
+            border-radius: 8px;
+            box-shadow: 8px 8px 64px 0px rgba(0, 50, 109, 0.1);
+            background: rgb(255, 255, 255);
+            font-family: $font;
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 32px;
+            padding: 20px 24px;
+            resize: none;
+            border: none;
+          }
+        }
+      }
+    }
+  }
+}
