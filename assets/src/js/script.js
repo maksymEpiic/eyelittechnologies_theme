@@ -4,17 +4,19 @@
 
 jQuery(document).ready(function () {
     jQuery('a[href="#"]').on('click', function (e) {
-       e.preventDefault();
-   });
+        e.preventDefault();
+    });
 
     // Конфигурация для интерактивной карты
     const mapConfig = {
         triggers: {
-            india: { show: '.india', hide: '.usa, .uk, .canada, .canada_n' },
-            uk: { show: '.uk', hide: '.usa, .india, .canada, .canada_n' },
-            usa: { show: '.usa', hide: '.uk, .india, .canada, .canada_n' },
-            canada: { show: '.canada', hide: '.uk, .india, .usa, .canada_n' },
-            canada_n: { show: '.canada_n', hide: '.uk, .india, .usa, .canada' }
+            india: { show: '.india', hide: '.usa, .uk, .canada, .canada_n, .japan, .taiwan' },
+            uk: { show: '.uk', hide: '.usa, .india, .canada, .canada_n, .japan, .taiwan' },
+            usa: { show: '.usa', hide: '.uk, .india, .canada, .canada_n, .japan, .taiwan' },
+            canada: { show: '.canada', hide: '.uk, .india, .usa, .canada_n, .japan, .taiwan' },
+            canada_n: { show: '.canada_n', hide: '.uk, .india, .usa, .canada, .japan, .taiwan' },
+            japan: { show: '.japan', hide: '.uk, .india, .usa, .canada, .canada_n, .taiwan' },
+            taiwan: { show: '.taiwan', hide: '.uk, .india, .usa, .canada, .japan, .canada_n' }
         }
     };
 
@@ -30,7 +32,7 @@ jQuery(document).ready(function () {
         jQuery(config.show).on('click', () => {
             const data = jQuery(`path.${key}`).data('adress');
             navigator.clipboard.writeText(String(data));
-            
+
             // Показываем уведомление
             jQuery('.adress_copied').addClass('show');
             setTimeout(() => jQuery('.adress_copied').removeClass('show'), 1000);
@@ -328,6 +330,57 @@ window.addEventListener('DOMContentLoaded', () => {
 
 });
 
+// document.addEventListener('wpcf7mailsent', function(event) {
+//     const formId = event.detail.contactFormId;
+//
+//     if (formId !== 3934) return;
+//
+//     const form = event.target;
+//     const formData = new FormData(form);
+//
+//
+//     const email = formData.get('email');
+//     const first_name = formData.get('first_name');
+//     const last_name = formData.get('last_name');
+//     const message = formData.get('message');
+//
+//
+//     const payload = {
+//         fields: [
+//             { name: 'email', value: email },
+//             { name: 'firstname', value: first_name },
+//             { name: 'lastname', value: last_name },
+//             { name: 'message', value: message }
+//         ],
+//         context: {
+//             pageUri: window.location.href,
+//             pageName: document.title
+//         }
+//     };
+//
+//
+//     const portalId = '48720229';
+//     const hubFormId = '96352238-965e-44f6-9dac-eeb5867f0ab4';
+//
+//     const endpoint = `https://api.hsforms.com/submissions/v3/integration/submit/${portalId}/${hubFormId}`;
+//
+//     fetch(endpoint, {
+//         method: 'POST',
+//         headers: { 'Content-Type': 'application/json' },
+//         body: JSON.stringify(payload)
+//     })
+//         .then(res => res.json().then(json => {
+//             if (!res.ok) {
+//                 console.error('❌ Ошибка HubSpot:', json);
+//             } else {
+//                 console.log('✅ Успешно отправлено в HubSpot');
+//             }
+//         }))
+//         .catch(error => {
+//             console.error('❌ Сетевая ошибка при отправке в HubSpot:', error);
+//         });
+// }, false);
+
 document.addEventListener('DOMContentLoaded', function() {
     let siteHeader = document.querySelector('.site-header');
 
@@ -380,126 +433,148 @@ document.addEventListener('DOMContentLoaded', function() {
 
     });
 });
+if (window.location.href.includes('/wp-admin/')) {
+    (function () {
+        tinymce.create('tinymce.plugins.cta_shortcode_button', {
+            init: function (editor, url) {
+                editor.addButton('cta_shortcode_button', {
+                    title: 'Insert CTA',
+                    text: 'CTA',
+                    onclick: function () {
+                        editor.insertContent('[cta] CTA inner here [/cta]');
+                    }
+                });
+            },
+            createControl: function (n, cm) {
+                return null;
+            },
+            getInfo: function () {
+                return {
+                    longname: "CTA Block Shortcode Button",
+                    author: "Onfim",
+                    version: "1.0"
+                };
+            }
+        });
+        tinymce.PluginManager.add('cta_shortcode_button', tinymce.plugins.cta_shortcode_button);
 
-(function() {
-    tinymce.create('tinymce.plugins.cta_shortcode_button', {
-        init: function(editor, url) {
-            editor.addButton('cta_shortcode_button', {
-                title: 'Insert CTA',
-                text: 'CTA',
-                onclick: function() {
-                    editor.insertContent('[cta] CTA inner here [/cta]');
-                }
-            });
-        },
-        createControl: function(n, cm) {
-            return null;
-        },
-        getInfo: function() {
-            return {
-                longname: "CTA Block Shortcode Button",
-                author: "Onfim",
-                version: "1.0"
-            };
-        }
-    });
-    tinymce.PluginManager.add('cta_shortcode_button', tinymce.plugins.cta_shortcode_button);
+        tinymce.create('tinymce.plugins.cta_btn_shortcode_button', {
+            init: function (editor, url) {
+                editor.addButton('cta_btn_shortcode_button', {
+                    title: 'CTA button',
+                    text: 'CTA button',
+                    onclick: function () {
+                        editor.windowManager.open({
+                            title: 'Insert CTA button',
+                            body: [
+                                {type: 'textbox', name: 'href', label: 'URL', value: '#'},
+                                {type: 'textbox', name: 'text', label: 'Link Text', value: 'Click here'}
+                            ],
+                            onsubmit: function (e) {
+                                editor.insertContent('[cta_button href="' + e.data.href + '" text="' + e.data.text + '"]');
+                            }
+                        });
+                    }
+                });
+            },
+            createControl: function (n, cm) {
+                return null;
+            },
+            getInfo: function () {
+                return {
+                    longname: "CTA Link Shortcode Button",
+                    author: "Onfim",
+                    version: "1.0"
+                };
+            }
+        });
+        tinymce.PluginManager.add('cta_btn_shortcode_button', tinymce.plugins.cta_btn_shortcode_button);
+    })();
 
-    tinymce.create('tinymce.plugins.cta_btn_shortcode_button', {
-        init: function(editor, url) {
-            editor.addButton('cta_btn_shortcode_button', {
-                title: 'CTA button',
-                text: 'CTA button',
-                onclick: function() {
-                    editor.windowManager.open({
-                        title: 'Insert CTA button',
-                        body: [
-                            {type: 'textbox', name: 'href', label: 'URL', value: '#'},
-                            {type: 'textbox', name: 'text', label: 'Link Text', value: 'Click here'}
-                        ],
-                        onsubmit: function(e) {
-                            editor.insertContent('[cta_button href="' + e.data.href + '" text="' + e.data.text + '"]');
-                        }
-                    });
-                }
-            });
-        },
-        createControl: function(n, cm) {
-            return null;
-        },
-        getInfo: function() {
-            return {
-                longname: "CTA Link Shortcode Button",
-                author: "Onfim",
-                version: "1.0"
-            };
-        }
-    });
-    tinymce.PluginManager.add('cta_btn_shortcode_button', tinymce.plugins.cta_btn_shortcode_button);
-})();
+    (function () {
+        tinymce.create('tinymce.plugins.cta_title_shortcode_button', {
+            init: function (editor, url) {
+                editor.addButton('cta_title_shortcode_button', {
+                    title: 'Insert CTA Title',
+                    text: 'CTA Title',
+                    onclick: function () {
+                        editor.windowManager.open({
+                            title: 'Insert CTA Title',
+                            body: [
+                                {type: 'textbox', name: 'content', label: 'Text', value: 'Your title here'}
+                            ],
+                            onsubmit: function (e) {
+                                editor.insertContent('[cta_title]' + e.data.content + '[/cta_title]');
+                            }
+                        });
+                    }
+                });
+            },
+            createControl: function (n, cm) {
+                return null;
+            },
+            getInfo: function () {
+                return {
+                    longname: "CTA Title Shortcode Button",
+                    author: "Onfim",
+                    version: "1.0"
+                };
+            }
+        });
+        tinymce.PluginManager.add('cta_title_shortcode_button', tinymce.plugins.cta_title_shortcode_button);
+    })();
 
-(function() {
-    tinymce.create('tinymce.plugins.cta_title_shortcode_button', {
-        init: function(editor, url) {
-            editor.addButton('cta_title_shortcode_button', {
-                title: 'Insert CTA Title',
-                text: 'CTA Title',
-                onclick: function() {
-                    editor.windowManager.open({
-                        title: 'Insert CTA Title',
-                        body: [
-                            {type: 'textbox', name: 'content', label: 'Text', value: 'Your title here'}
-                        ],
-                        onsubmit: function(e) {
-                            editor.insertContent('[cta_title]' + e.data.content + '[/cta_title]');
-                        }
-                    });
-                }
-            });
-        },
-        createControl: function(n, cm) {
-            return null;
-        },
-        getInfo: function() {
-            return {
-                longname: "CTA Title Shortcode Button",
-                author: "Onfim",
-                version: "1.0"
-            };
-        }
-    });
-    tinymce.PluginManager.add('cta_title_shortcode_button', tinymce.plugins.cta_title_shortcode_button);
-})();
+    (function () {
+        tinymce.create('tinymce.plugins.cta_subtitle_shortcode_button', {
+            init: function (editor, url) {
+                editor.addButton('cta_subtitle_shortcode_button', {
+                    title: 'Insert CTA Subtitle',
+                    text: 'CTA Subtitle',
+                    onclick: function () {
+                        editor.windowManager.open({
+                            title: 'Insert CTA Subtitle',
+                            body: [
+                                {type: 'textbox', name: 'content', label: 'Text', value: 'Your subtitle here'}
+                            ],
+                            onsubmit: function (e) {
+                                editor.insertContent('[cta_subtitle]' + e.data.content + '[/cta_subtitle]');
+                            }
+                        });
+                    }
+                });
+            },
+            createControl: function (n, cm) {
+                return null;
+            },
+            getInfo: function () {
+                return {
+                    longname: "CTA Subtitle Shortcode Button",
+                    author: "Onfim",
+                    version: "1.0"
+                };
+            }
+        });
+        tinymce.PluginManager.add('cta_subtitle_shortcode_button', tinymce.plugins.cta_subtitle_shortcode_button);
+    })();
 
-(function() {
-    tinymce.create('tinymce.plugins.cta_subtitle_shortcode_button', {
-        init: function(editor, url) {
-            editor.addButton('cta_subtitle_shortcode_button', {
-                title: 'Insert CTA Subtitle',
-                text: 'CTA Subtitle',
-                onclick: function() {
-                    editor.windowManager.open({
-                        title: 'Insert CTA Subtitle',
-                        body: [
-                            {type: 'textbox', name: 'content', label: 'Text', value: 'Your subtitle here'}
-                        ],
-                        onsubmit: function(e) {
-                            editor.insertContent('[cta_subtitle]' + e.data.content + '[/cta_subtitle]');
-                        }
-                    });
-                }
-            });
-        },
-        createControl: function(n, cm) {
-            return null;
-        },
-        getInfo: function() {
-            return {
-                longname: "CTA Subtitle Shortcode Button",
-                author: "Onfim",
-                version: "1.0"
-            };
-        }
-    });
-    tinymce.PluginManager.add('cta_subtitle_shortcode_button', tinymce.plugins.cta_subtitle_shortcode_button);
-})();
+}
+
+function getHubspotContext() {
+    const cookie = document.cookie.split('; ').find(row => row.startsWith('hubspotutk='));
+    const hutk = cookie ? cookie.split('=')[1] : '';
+
+    return {
+        hutk: hutk,
+        pageUri: window.location.href,
+        pageName: document.title,
+        referrer: document.referrer || ''
+    };
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    const hiddenInput = document.getElementById('hubspot_context');
+    if (hiddenInput) {
+        const context = getHubspotContext();
+        hiddenInput.value = JSON.stringify(context);
+    }
+});

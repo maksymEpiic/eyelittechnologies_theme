@@ -12,17 +12,17 @@
  * @return array
  */
 function eyelittechnologies_theme_body_classes( $classes ) {
-	// Adds a class of hfeed to non-singular pages.
-	if ( ! is_singular() ) {
-		$classes[] = 'hfeed';
-	}
+    // Adds a class of hfeed to non-singular pages.
+    if ( ! is_singular() ) {
+        $classes[] = 'hfeed';
+    }
 
-	// Adds a class of no-sidebar when there is no sidebar present.
-	if ( ! is_active_sidebar( 'sidebar-1' ) ) {
-		$classes[] = 'no-sidebar';
-	}
+    // Adds a class of no-sidebar when there is no sidebar present.
+    if ( ! is_active_sidebar( 'sidebar-1' ) ) {
+        $classes[] = 'no-sidebar';
+    }
 
-	return $classes;
+    return $classes;
 }
 add_filter( 'body_class', 'eyelittechnologies_theme_body_classes' );
 
@@ -30,9 +30,9 @@ add_filter( 'body_class', 'eyelittechnologies_theme_body_classes' );
  * Add a pingback url auto-discovery header for single posts, pages, or attachments.
  */
 function eyelittechnologies_theme_pingback_header() {
-	if ( is_singular() && pings_open() ) {
-		printf( '<link rel="pingback" href="%s">', esc_url( get_bloginfo( 'pingback_url' ) ) );
-	}
+    if ( is_singular() && pings_open() ) {
+        printf( '<link rel="pingback" href="%s">', esc_url( get_bloginfo( 'pingback_url' ) ) );
+    }
 }
 add_action( 'wp_head', 'eyelittechnologies_theme_pingback_header' );
 
@@ -56,10 +56,10 @@ add_action( 'wp_enqueue_scripts', 'theme_register_style' );
 
 
 function terem_scripts() {
-   //wp_enqueue_script( 'swiper-js', 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js', array('jquery'), '1.0.0', true );
-   wp_enqueue_script( 'slick-js', 'https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js', array('jquery'), '1.0.0', true );
+    //wp_enqueue_script( 'swiper-js', 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js', array('jquery'), '1.0.0', true );
+    wp_enqueue_script( 'slick-js', 'https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js', array('jquery'), '1.0.0', true );
 
-   wp_enqueue_script( 'custom', get_stylesheet_directory_uri() . '/assets/dist/js/script.js', array( 'jquery'), _S_VERSION, true );
+    wp_enqueue_script( 'custom', get_stylesheet_directory_uri() . '/assets/dist/js/script.js', array( 'jquery'), _S_VERSION, true );
     wp_localize_script( 'custom', 'ajax', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
 }
 add_action( 'wp_enqueue_scripts', 'terem_scripts' );
@@ -330,7 +330,7 @@ function my_repeater_show_more() {
                     <?php endif; ?>
                 </div>
 
-                
+
 
             </div>
             <?php
@@ -454,7 +454,6 @@ add_action( 'wp_ajax_get_category_counts', 'ajax_get_category_counts' );
 add_action( 'wp_ajax_nopriv_get_category_counts', 'ajax_get_category_counts' );
 
 
-
 function cta_shortcode_function($atts, $content = null) {
     return '<div class="cta_blog_block">' . do_shortcode($content) . '</div>';
 }
@@ -494,7 +493,393 @@ function add_mce_plugins($plugin_array) {
 }
 add_filter("mce_external_plugins", "add_mce_plugins");
 
+// Отключить поддержку комментариев
+function disable_comments_support() {
+    // Посты
+    remove_post_type_support('post', 'comments');
+    // Страницы
+    remove_post_type_support('page', 'comments');
+}
+add_action('init', 'disable_comments_support');
+
+// Удалить комментарии из админки
+function disable_comments_admin_menu() {
+    remove_menu_page('edit-comments.php');
+}
+add_action('admin_menu', 'disable_comments_admin_menu');
+
+// Отключить комментарии на фронтенде
+function disable_comments_template() {
+    return false;
+}
+add_filter('comments_open', 'disable_comments_template', 20, 2);
+add_filter('pings_open', 'disable_comments_template', 20, 2);
 
 
+add_action('wpcf7_before_send_mail', 'cf7_multi_form_hubspot_log');
+
+function cf7_multi_form_hubspot_log($contact_form) {
+    $form_id = $contact_form->id();
+
+    // Конфигурация форм
+    $forms = [
+        3934 => [
+            'name'     => 'Contact Us',
+            'portalId' => '48720229',
+            'formId'   => '96352238-965e-44f6-9dac-eeb5867f0ab4',
+            'fields'   => [
+                'email'     => 'email',
+                'firstname' => 'first_name',
+                'lastname'  => 'last_name',
+                'message'   => 'message',
+            ]
+        ],
+        // можно добавить другие формы по аналогии
+    ];
+
+    if (!isset($forms[$form_id])) return;
+
+    $submission = WPCF7_Submission::get_instance();
+    if (!$submission) return;
+
+    $data = $submission->get_posted_data();
+    $form_config = $forms[$form_id];
+
+    // Подготовка полей для HubSpot
+    $fields = [];
+    foreach ($form_config['fields'] as $hs_name => $cf7_name) {
+        $fields[] = [
+            'name'  => $hs_name,
+            'value' => sanitize_text_field($data[$cf7_name] ?? '')
+        ];
+    }
+
+    // Получение context из скрытого поля (если есть)
+    $context = [
+        'pageUri'  => $_SERVER['HTTP_REFERER'] ?? '',
+        'pageName' => get_the_title(),
+    ];
+
+    if (!empty($data['hubspot_context'])) {
+        $decoded = json_decode(stripslashes($data['hubspot_context']), true);
+        if (is_array($decoded)) {
+            // Только разрешённые поля
+            $allowed = ['hutk', 'pageUri', 'pageName', 'referrer'];
+            $context = array_intersect_key($decoded, array_flip($allowed));
+        }
+    }
+
+    $payload = [
+        'fields'  => $fields,
+        'context' => $context,
+    ];
+
+    $endpoint = "https://api.hsforms.com/submissions/v3/integration/submit/{$form_config['portalId']}/{$form_config['formId']}";
+
+    $response = wp_remote_post($endpoint, [
+        'headers' => ['Content-Type' => 'application/json'],
+        'body'    => json_encode($payload),
+    ]);
+
+    $response_code = wp_remote_retrieve_response_code($response);
+    $response_body = wp_remote_retrieve_body($response);
+    $response_json = json_decode($response_body, true);
+
+    if (is_wp_error($response)) {
+        $status = 'WP_ERROR';
+        $hubspot_message = $response->get_error_message();
+    } elseif ($response_code !== 200) {
+        $status = $response_json['errorType'] ?? 'UNKNOWN_ERROR';
+        $hubspot_message = $response_json['message'] ?? 'No message from HubSpot';
+    } else {
+        $status = 'SUCCESS';
+        $hubspot_message = $response_json['inlineMessage'] ?? 'Form submitted successfully.';
+    }
+
+    // Логирование в CSV
+    $upload_dir = wp_upload_dir();
+    $log_dir = $upload_dir['basedir'] . '/hubspot-logs/';
+    wp_mkdir_p($log_dir);
+
+    $log_file = $log_dir . "form-{$form_id}.csv";
+    $log_row = [
+        date('Y-m-d H:i:s'),
+        $status,
+        json_encode($data, JSON_UNESCAPED_UNICODE),
+        json_encode($payload, JSON_UNESCAPED_UNICODE),
+        $response_body
+    ];
+
+    $handle = fopen($log_file, 'a');
+    fputcsv($handle, $log_row);
+    fclose($handle);
+}
 
 
+add_action('admin_menu', 'cf7_hubspot_logs_admin_page');
+function cf7_hubspot_logs_admin_page() {
+    add_menu_page(
+        'HubSpot Logs',
+        'HubSpot Forms',
+        'manage_options',
+        'hubspot-forms-log',
+        'cf7_hubspot_render_admin_tabs',
+        'dashicons-feedback',
+        25
+    );
+}
+
+function cf7_hubspot_render_admin_tabs() {
+    $forms = [
+        3934 => 'Contact Us',
+        //456 => 'Обратная связь',
+    ];
+
+    $active_tab = $_GET['tab'] ?? array_key_first($forms);
+
+    echo '<div class="wrap"><h1>HubSpot Form Submission Logs</h1>';
+    echo '<h2 class="nav-tab-wrapper">';
+    foreach ($forms as $id => $label) {
+        $active = ($active_tab == $id) ? ' nav-tab-active' : '';
+        echo '<a href="?page=hubspot-forms-log&tab=' . $id . '" class="nav-tab' . $active . '">' . esc_html($label) . '</a>';
+    }
+    echo '</h2>';
+
+    $upload_dir = wp_upload_dir();
+    $log_file = $upload_dir['basedir'] . "/hubspot-logs/form-{$active_tab}.csv";
+
+    if (!file_exists($log_file)) {
+        echo '<p>There is no data for the selected form.</p></div>';
+        return;
+    }
+
+    $rows = array_map('str_getcsv', file($log_file));
+    $clear_url = wp_nonce_url(admin_url("admin.php?page=hubspot-forms-log&tab={$active_tab}&action=clear"), 'cf7hubspot_clear');
+    $download_url = wp_nonce_url(admin_url("admin.php?page=hubspot-forms-log&tab={$active_tab}&action=download"), 'cf7hubspot_download');
+
+    echo '<p style="margin-bottom: 15px;">';
+    echo '<a href="' . esc_url($download_url) . '" class="button button-primary">Download CSV</a> ';
+    echo '<a href="' . esc_url($clear_url) . '" class="button button-danger" onclick="return confirm(\'Вы точно хотите очистить лог?\')">Clear log</a>';
+    echo '</p>';
+
+    echo '<table class="widefat"><thead>
+        <tr>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Message</th>
+            <th>HubSpot Response</th>
+        </tr>
+      </thead><tbody>';
+
+    foreach ($rows as $row) {
+        $date     = $row[0] ?? '';
+        $status   = $row[1] ?? '';
+        $message  = $row[2] ?? '';
+        $rawResp  = $row[4] ?? '{}';
+
+        $hubspot_response = json_decode($rawResp, true);
+
+        // Если есть errorType — используем его как статус
+        if (is_array($hubspot_response['errors'][0] ?? null)) {
+            $status = $hubspot_response['errors'][0]['errorType'] ?? $status;
+        }
+
+        // Если message в CSV не сохранён — попробуем достать из ответа
+        if (!$message && is_array($hubspot_response) && !empty($hubspot_response['message'])) {
+            $message = $hubspot_response['message'];
+        }
+
+        $row_class = $status !== 'SUCCESS' ? 'error' : '';
+
+        echo '<tr class="' . esc_attr($row_class) . '">';
+        echo '<td><strong>' . esc_html($date) . '</strong></td>';
+        echo '<td><span class="cf7-status cf7-' . strtolower($status) . '">' . esc_html($status) . '</span></td>';
+        echo '<td>';
+        $form_data = json_decode($message, true);
+
+        if (json_last_error() === JSON_ERROR_NONE && is_array($form_data)) {
+            echo '<table class="cf7-subtable">';
+            foreach ($form_data as $key => $value) {
+                if (is_array($value)) {
+                    echo '<tr><td>' . esc_html($key) . '</td><td><pre>' . esc_html(json_encode($value, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE)) . '</pre></td></tr>';
+                } else {
+                    echo '<tr><td>' . esc_html($key) . '</td><td>' . esc_html($value) . '</td></tr>';
+                }
+            }
+            echo '</table>';
+        } else {
+            echo esc_html($message ?: '-');
+        }
+
+        echo '</td>';
+
+        echo '<td><table class="cf7-subtable">';
+        foreach ($hubspot_response as $key => $value) {
+            if (is_array($value)) {
+                echo '<tr><td><strong>' . esc_html($key) . '</strong></td><td><pre>' . esc_html(json_encode($value, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT)) . '</pre></td></tr>';
+            } else {
+                echo '<tr><td><strong>' . esc_html($key) . '</strong></td><td>' . esc_html($value) . '</td></tr>';
+            }
+        }
+        echo '</table></td>';
+        echo '</tr>';
+    }
+
+    echo '</tbody></table></div>';
+}
+
+add_action('admin_head', 'cf7_hubspot_logs_styles');
+function cf7_hubspot_logs_styles() {
+    if (!isset($_GET['page']) || $_GET['page'] !== 'hubspot-forms-log') return;
+    ?>
+    <style>
+        .cf7-status {
+            padding: 3px 6px;
+            border-radius: 4px;
+            color: #fff;
+            font-weight: bold;
+        }
+        .cf7-success { background-color: #46b450; }
+        .cf7-blocked_email,
+        .cf7-error,
+        .cf7-unknown_error { background-color: #dc3232; }
+        .cf7-subtable td {
+            padding: 2px 6px;
+            border-bottom: 1px solid #eee;
+            vertical-align: top;
+        }
+        .cf7-subtable {
+            width: 100%;
+            font-size: 13px;
+            margin: 0;
+            border-collapse: collapse;
+        }
+        details summary {
+            cursor: pointer;
+            font-weight: bold;
+            color: #0073aa;
+            margin-bottom: 5px;
+        }
+        details pre {
+            background: #f6f7f7;
+            padding: 10px;
+            margin: 0;
+            font-size: 12px;
+            line-height: 1.4;
+            overflow-x: auto;
+            border: 1px solid #ccd0d4;
+        }
+        .widefat{
+            border-collapse: collapse;
+        }
+        .widefat th:nth-child(1){
+            width: 150px;
+        }
+        .widefat th:nth-child(2){
+            width: 150px;
+        }
+        .widefat th:nth-child(3){
+            width: 390px;
+        }
+
+        .widefat td {
+            vertical-align: middle;
+            border: 1px solid lightgray;
+        }
+        .widefat td:first-child {
+            white-space: nowrap;
+        }
+        .error {
+            background: #fff0f0;
+        }
+    </style>
+    <?php
+}
+
+add_action('admin_init', 'cf7_hubspot_logs_handle_actions');
+
+function cf7_hubspot_logs_handle_actions() {
+    if (!is_admin() || !current_user_can('manage_options')) return;
+    if (!isset($_GET['page']) || $_GET['page'] !== 'hubspot-forms-log') return;
+
+    // Очистка
+    if (isset($_GET['action'], $_GET['tab']) && $_GET['action'] === 'clear' && check_admin_referer('cf7hubspot_clear')) {
+        $form_id = intval($_GET['tab']);
+        $upload_dir = wp_upload_dir();
+        $log_file = $upload_dir['basedir'] . "/hubspot-logs/form-{$form_id}.csv";
+        if (file_exists($log_file)) {
+            unlink($log_file);
+            add_action('admin_notices', function() {
+                echo '<div class="notice notice-success is-dismissible"><p>The log has been cleared successfully.</p></div>';
+            });
+        }
+    }
+
+    // Скачать CSV
+    if (isset($_GET['action'], $_GET['tab']) && $_GET['action'] === 'download' && check_admin_referer('cf7hubspot_download')) {
+        $form_id = intval($_GET['tab']);
+        $upload_dir = wp_upload_dir();
+        $log_file = $upload_dir['basedir'] . "/hubspot-logs/form-{$form_id}.csv";
+        if (file_exists($log_file)) {
+            header('Content-Type: text/csv');
+            header('Content-Disposition: attachment; filename="hubspot-form-' . $form_id . '.csv"');
+            readfile($log_file);
+            exit;
+        }
+    }
+}
+
+add_action('admin_menu', function () {
+    add_submenu_page(
+        'hubspot-forms-log', // slug родительской страницы
+        'Domains blocked',
+        'Domains blocked',
+        'manage_options',
+        'cf7-blocked-domains',
+        'cf7_blocked_domains_page'
+    );
+});
+
+
+function cf7_blocked_domains_page() {
+    if (isset($_POST['cf7_blocked_domains'])) {
+        check_admin_referer('cf7_blocked_domains_save');
+        update_option('cf7_blocked_domains_list', sanitize_textarea_field($_POST['cf7_blocked_domains']));
+        echo '<div class="updated"><p>The list has been updated.</p></div>';
+    }
+
+    $list = get_option('cf7_blocked_domains_list', '');
+
+    echo '<div class="wrap">';
+    echo '<h1>Domain Blocking for CF7</h1>';
+    echo '<form method="post">';
+    wp_nonce_field('cf7_blocked_domains_save');
+    echo '<textarea name="cf7_blocked_domains" rows="10" cols="50" class="large-text code" placeholder="One domain per line...">' . esc_textarea($list) . '</textarea>';
+    echo '<p><input type="submit" class="button button-primary" value="Сохранить"></p>';
+    echo '</form>';
+    echo '</div>';
+}
+
+add_filter('wpcf7_validate_email*', 'cf7_check_blacklisted_domains', 20, 2);
+add_filter('wpcf7_validate_email', 'cf7_check_blacklisted_domains', 20, 2);
+
+function cf7_check_blacklisted_domains($result, $tag) {
+    $tag_name = $tag->name;
+    $submission = WPCF7_Submission::get_instance();
+    if (!$submission) return $result;
+
+    $data = $submission->get_posted_data();
+    $email = $data[$tag_name] ?? '';
+
+    $blocked_raw = get_option('cf7_blocked_domains_list', '');
+    $blocked = array_map('trim', explode("\n", strtolower($blocked_raw)));
+
+    if (!empty($email)) {
+        $email_domain = strtolower(substr(strrchr($email, "@"), 1));
+        if (in_array($email_domain, $blocked)) {
+            $result->invalidate($tag, "Email domains like @$email_domain are not allowed.");
+        }
+    }
+
+    return $result;
+}
