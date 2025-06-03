@@ -37,7 +37,7 @@
                     <div class="hero_right_side">
 
                         <div class="form_block">
-                            <?php echo do_shortcode(get_field( 'form_shortcode' ));  ?>
+                            <?php echo do_shortcode('[contact-form-7 id="cacfe7d" title="Contact form 1"]');  ?>
 
                         </div>
                     </div>

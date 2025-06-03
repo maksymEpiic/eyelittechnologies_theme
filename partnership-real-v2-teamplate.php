@@ -1,4 +1,4 @@
-<?php /* Template Name: Partnership Template */ ?>
+<?php /* Template Name: Partnership Template V2 */ ?>
 
 <?php get_header(); ?>
 
@@ -13,19 +13,27 @@
                     <div class="content">
                         <?php the_field( 'side_text' ); ?>
                     </div>
+                    <div class="hs-cta-embed hs-cta-simple-placeholder hs-cta-embed-189289884498"
+                         style="max-width:100%; max-height:100%; width:182px;height:50.3984375px" data-hubspot-wrapper-cta-id="189289884498">
+                        <a href="https://cta-service-cms2.hubspot.com/web-interactives/public/v1/track/redirect?encryptedPayload=AVxigLJRHcu3SeXa5ZMa%2BFiUwPY1f9Mv8nNHTbpN%2FiapYV1Wdo3W1swP0VNvCiTUayXlYiS5uSnxYMy8p61FpUJhyZrv6cG5LXWm3dZdYnudjNkJ3aKnKqrwC4oiETLDLgBOW5ImlZj1LIX25M1%2Bv%2FK6vGFoTRl35hFXlc8m1iZ4NHzv0hMpqJGPTw%3D%3D&webInteractiveContentId=189289884498&portalId=48720229" target="_blank" rel="noopener" crossorigin="anonymous">
+                            <img alt="View jobs" loading="lazy" src="https://no-cache.hubspot.com/cta/default/48720229/interactive-189289884498.png" style="height: 100%; width: 100%; object-fit: fill"
+                                 onerror="this.style.display='none'" />
+                        </a>
+                    </div>
+
+
+                </div>
+                <div class="hero_right_side">
+
+<!--                    <div class="form_block">-->
+<!--                        --><?php //echo do_shortcode('[hubspot type="form" portal="48720229" id="de4262d6-fda8-4f51-b65c-7f8ecadbe3a6"]');  ?>
+<!--                    </div>-->
                     <?php $side_image = get_field( 'side_image' ); ?>
                     <?php if ( $side_image ) : ?>
                         <div class="side_image">
                             <img src="<?php echo esc_url( $side_image['url'] ); ?>" alt="<?php echo esc_attr( $side_image['alt'] ); ?>" />
                         </div>
                     <?php endif; ?>
-
-                </div>
-                <div class="hero_right_side">
-
-                    <div class="form_block">
-                        <?php echo do_shortcode('[hubspot type="form" portal="48720229" id="de4262d6-fda8-4f51-b65c-7f8ecadbe3a6"]');  ?>
-                    </div>
                 </div>
             </div>
         </div>
@@ -70,15 +78,7 @@
         <?php // echo 'false'; ?>
     <?php endif; ?>
 
-    <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
 
-    <script>
-        hbspt.forms.create({
-            portalId: "48720229",
-            formId: "de4262d6-fda8-4f51-b65c-7f8ecadbe3a6",
-            region: "na1"
-        });
-    </script>
 
 
 </main>
