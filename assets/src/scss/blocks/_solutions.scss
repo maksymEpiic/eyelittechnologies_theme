@@ -1,5 +1,5 @@
 .solutions{
-  padding-top: 180px;
+  padding-top: 90px;
   background-color: #052244;
   background-image: url("../images/blocks/banner_img/bubbles_pattern.png");
   background-position: 19px 20px;
@@ -19,7 +19,8 @@
     transform: rotate(45deg);
   }
   @media ('max-width: 768px') {
-    padding-top: 40px;
+    padding-top: 60px;
+    padding-bottom: 60px;
   }
   .block_title{
     font-family: $fontloght;
@@ -28,6 +29,7 @@
     line-height: 150%;
     text-align: center;
     text-transform: none;
+    margin-top: 100px;
     margin-bottom: 40px;
     color: #fff;
     b{
@@ -38,6 +40,7 @@
     @media ('max-width: 767px') {
       font-size: 24px;
       line-height: 32px;
+      margin-top: 60px;
     }
 
   }
@@ -46,11 +49,14 @@
     column-gap: 66px;
     justify-content: space-between;
     align-items: stretch;
+    @media ('max-width: 1024px') {
+      column-gap: 40px;
+    }
     @media ('max-width: 768px') {
       flex-direction: column;
     }
     .solution_item{
-      border-radius: 24px;
+      border-radius: 8px;
       position: relative;
       background-color: #F1F1F1;
       overflow: hidden;
@@ -68,7 +74,7 @@
         }
       }
       .si_top{
-        padding-top: 32px;
+        padding-top: 26px;
         padding-left: 24px;
         padding-right: 24px;
         height: 100%;
@@ -85,7 +91,7 @@
           line-height: 56px;
           text-align: center;
           text-transform: uppercase;
-          margin-bottom: 16px;
+          margin-bottom: 5px;
           display: block;
         }
       }
@@ -102,7 +108,7 @@
       }
       .item_ico{
         width: 100%;
-        aspect-ratio: 364/240;
+        aspect-ratio: 364/255;
 
 
         margin: 0;
@@ -113,7 +119,7 @@
 
       }
       .item_btn{
-        margin-bottom: 55px;
+        margin-bottom: 17px;
         text-align: center;
         display: flex;
         align-items: end;
@@ -130,7 +136,7 @@
           display: inline-flex;
           justify-content: center;
           align-items: center;
-          border-radius: 16px;
+          border-radius: 8px;
           border: none;
           background-color: rgba(0, 50, 109, 10%);
           &:hover{

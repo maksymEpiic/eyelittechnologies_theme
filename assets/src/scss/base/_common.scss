@@ -347,3 +347,16 @@ section{
     background-color: #F0F7FF;
 }
 
+    .hex{
+        width: 1392px;
+        height: 1039px;
+        background-size: cover;
+        position: absolute;
+        background-image: url("data:image/svg+xml,%3Csvg width='1392' height='1039' viewBox='0 0 1392 1039' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cg filter='url(%23filter0_f_2682_67165)'%3E%3Cpath d='M632.92 132.195C657.669 116.287 689.325 115.916 714.44 131.239L1235.17 448.951C1283.6 478.499 1284.42 548.567 1236.7 579.243L727.08 906.805C702.331 922.713 670.675 923.084 645.56 907.761L124.826 590.049C76.3965 560.501 75.5758 490.433 123.3 459.757L632.92 132.195Z' fill='%230392E3' fill-opacity='0.1'/%3E%3C/g%3E%3Cdefs%3E%3Cfilter id='filter0_f_2682_67165' x='-32' y='0' width='1424' height='1039' filterUnits='userSpaceOnUse' color-interpolation-filters='sRGB'%3E%3CfeFlood flood-opacity='0' result='BackgroundImageFix'/%3E%3CfeBlend mode='normal' in='SourceGraphic' in2='BackgroundImageFix' result='shape'/%3E%3CfeGaussianBlur stdDeviation='60' result='effect1_foregroundBlur_2682_67165'/%3E%3C/filter%3E%3C/defs%3E%3C/svg%3E%0A");
+
+        @media ('max-width: 767px') {
+            width: 560px;
+            height: 377px;
+        }
+    }
+
