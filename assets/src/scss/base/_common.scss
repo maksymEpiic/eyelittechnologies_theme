@@ -184,6 +184,19 @@ a {
                 opacity: 1;
             }
         }
+        &.btn_bordered_white{
+            background-color: transparent;
+            border: 1px solid #fff;
+            color: #fff;
+
+
+            &:hover{
+                background-color: $akcentColor;
+                border: 1px solid $akcentColor;
+                color: #fff;
+                opacity: 1;
+            }
+        }
     }
 }
 
