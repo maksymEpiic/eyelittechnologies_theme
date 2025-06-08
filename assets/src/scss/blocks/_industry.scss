@@ -3,6 +3,14 @@
   padding-bottom: 100px;
   position: relative;
   overflow: hidden;
+  &.aps_industry{
+    padding-top: 100px;
+    padding-bottom: 0px;
+    @media ('max-width: 768px') {
+      padding-top: 40px;
+      padding-bottom: 0px;
+    }
+  }
   @media ('max-width: 768px') {
     padding-top: 40px;
     padding-bottom: 60px;
@@ -15,9 +23,21 @@
     bottom: -600px;
     left: -600px;
     z-index: 1;
+    &.top{
+      top: -600px;
+      left: auto;
+      right: -600px;
+      bottom: auto;
+    }
     @media ('max-width: 767px') {
       bottom: -230px;
       left: -170px;
+      &.top{
+        top: -230px;
+        left: auto;
+        right: -170px;
+        bottom: auto;
+      }
     }
   }
   .block_animation{

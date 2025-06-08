@@ -1,10 +1,10 @@
 .key_compilation{
-  padding-top: 120px;
+  padding-top: 100px;
   @media ('max-width: 768px') {
     padding-top: 80px;
   }
   .block_title{
-    margin-bottom: 40px;
+    margin-bottom: 64px;
 
     text-align: center;
 
@@ -38,6 +38,8 @@
       gap: 32px;
       .logo_item{
         width: calc(100% / 3 - 32px);
+        display: flex;
+        justify-content: center;
       }
     }
     @media ('max-width: 767px') {
@@ -46,6 +48,7 @@
   }
   .under_text{
     margin-top: 40px;
+    text-align: center;
     p{
       font-size: 20px;
       line-height: 150%;

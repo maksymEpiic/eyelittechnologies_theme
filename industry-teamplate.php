@@ -129,7 +129,7 @@
                 <div class="hex"></div>
                 <div class="container">
                     <div class="white_paper_block_top_title">
-                        <h2><?php the_field( 'white_paper_title' ); ?></h2>
+                        <?php the_field( 'white_paper_title' ); ?>
                         <div class="subtitle_block">
                             <?php the_field( 'white_paper_subtitle' ); ?>
                         </div>
@@ -144,7 +144,7 @@
                         <div class="content_side">
                             <span class="pre_title">White paper</span>
                             <div class="block_cs_title">
-                                <h2><?php the_field( 'white_paper_inner_block_title' ); ?></h2>
+                                <?php the_field( 'white_paper_inner_block_title' ); ?>
                             </div>
                             <div class="block_cs_content">
                                 <?php the_field( 'white_paper_inner_block_content' ); ?>
@@ -263,7 +263,7 @@
                         <div class="ready_banner_wrap">
 
                             <div class="block_title">
-                                <h2><?php the_field( 'ready_to_start_title' ); ?></h2>
+                                <?php the_field( 'ready_to_start_title' ); ?>
                             </div>
                             <div class="block_content">
                                 <?php the_field( 'ready_to_start_content' ); ?>

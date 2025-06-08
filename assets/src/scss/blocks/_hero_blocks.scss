@@ -16,7 +16,7 @@
         z-index: 1;
         position: relative;
         @media ('max-width: 768px') {
-            align-items: center;
+
             flex-direction: column-reverse;
         }
         .hero_left_side {
@@ -266,6 +266,31 @@
                     }
                 }
             }
+        }
+    }
+    &.aps-hero{
+        .hero_wrap {
+            padding-top: 190px;
+            @media ('max-width: 768px') {
+                padding-top: 80px;
+                min-height: 630px;
+            }
+            @media ('max-width: 767px') {
+                padding-top: 80px;
+                min-height: 380px;
+                max-height: 380px;
+            }
+            .banner_content{
+                h1{
+                    margin-bottom: 64px;
+                }
+            }
+            .banner_link_block{
+                padding-bottom: 160px;
+            }
+        }
+        .hero_bottom_text{
+            transform: translateY(65%);
         }
     }
     &.case_hero{

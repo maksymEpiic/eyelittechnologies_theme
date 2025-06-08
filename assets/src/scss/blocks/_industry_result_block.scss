@@ -1,3 +1,14 @@
+.aps-hero + .industry_result{
+  padding-top: 220px;
+  padding-bottom: 64px;
+  @media ('max-width: 768px') {
+    padding-top: 315px;
+  }
+  @media ('max-width: 767px') {
+    padding-top: 440px;
+    padding-bottom: 40px;
+  }
+}
 .industry_result {
   padding-top: 150px;
   background-color: #052244;

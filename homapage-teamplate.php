@@ -138,7 +138,7 @@
             <div class="hex"></div>
             <div class="container">
                 <div class="title_of_block">
-                    <h2><?php the_field( 'infographics_title' ); ?></h2>
+                    <?php the_field( 'infographics_title' ); ?>
                 </div>
                 <div class="result_wrap">
                     <?php if ( have_rows( 'infographics_items' ) ) : ?>
@@ -356,7 +356,7 @@
                 </div>
             </div>
             <div class="block_title">
-                <h2><?php the_field( 'industry_title' ); ?></h2>
+                <?php the_field( 'industry_title' ); ?>
             </div>
             <div class="industry_wrap">
                 <?php if ( have_rows( 'industry_items' ) ) : ?>
@@ -431,9 +431,9 @@
             <div class="hex"></div>
             <div class="container">
                 <div class="title_block">
-                    <h2>
-                        <?php the_field( 'reviews_block_title' ); ?>
-                    </h2>
+
+                   <?php the_field( 'reviews_block_title' ); ?>
+
                 </div>
             </div>
             <div class="review_slider">
@@ -574,7 +574,7 @@
             <div class="ready_banner_wrap">
 
                     <div class="block_title">
-                        <h2><?php the_field( 'redy_to_start_title' ); ?></h2>
+                        <?php the_field( 'redy_to_start_title' ); ?>
                     </div>
                     <div class="block_content">
                         <?php the_field( 'redy_to_start_text' ); ?>
