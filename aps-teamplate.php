@@ -230,9 +230,12 @@
 
     <section class="key_compilation">
         <div class="container">
+            <?php $key_compliance_title = get_field( 'key_compliance_title' ); ?>
+            <?php if ( $key_compliance_title ) : ?>
             <div class="block_title">
                 <h2><?php the_field( 'key_compliance_title' ); ?></h2>
             </div>
+            <?php endif; ?>
             <div class="logos_wrap">
                 <?php $key_compliance_logos_images = get_field( 'key_compliance_logos' ); ?>
                 <?php if ( $key_compliance_logos_images ) : ?>
@@ -259,9 +262,13 @@
 
                 <div class="content_wrap">
                     <div class="content_side">
+                        <?php $scheduling_title = get_field( 'scheduling_title' ); ?>
+                        <?php if ( $scheduling_title ) : ?>
                         <div class="title_block">
+
                             <?php the_field( 'scheduling_title' ); ?>
                         </div>
+                        <?php endif; ?>
 
                         <div class="content">
                             <?php the_field( 'scheduling_text' ); ?>

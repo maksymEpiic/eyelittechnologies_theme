@@ -48,6 +48,13 @@
           font-size: 40px;
           line-height: 1.2;
           color: #fff;
+          p{
+            font-family: $fontloght;
+            margin-bottom: 0;
+            b{
+              font-family: $font;
+            }
+          }
           h2{
             font-family: $fontloght;
             b{
