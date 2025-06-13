@@ -1,0 +1,73 @@
+.trusted_by_leads{
+  padding-top: 74px;
+  padding-bottom: 64px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: #D8EEFD;
+
+  .block_title{
+    text-align: center;
+    margin-bottom: 100px;
+    @media ('max-width: 767px') {
+      margin-bottom: 100px;
+    }
+    h2{
+      font-weight: 300;
+      font-size: 40px;
+      font-family: $fontloght;
+      line-height: 150%;
+      letter-spacing: 1px;
+      @media ('max-width: 767px') {
+        font-size: 24px;
+        line-height: 150%;
+      }
+      b{
+        font-weight: 700;
+        font-family: $fontblack;
+      }
+      strong{
+        font-weight: 700;
+        font-family: $fontblack;
+      }
+    }
+  }
+  .content_block{
+
+    .quote_block{
+      position: relative;
+      margin-bottom: 64px;
+      p{
+        font-size: 20px;
+        line-height: 34px;
+        text-align: center;
+        @media ('max-width: 767px') {
+          br{
+            display: none;
+          }
+        }
+      }
+
+      &:before{
+        content: '';
+        width: 112px;
+        height: 34px;
+        position: absolute;
+        display: block;
+        top: -64px;
+        left: 0;
+        right: 0;
+        margin: auto;
+        background-image: url("data:image/svg+xml,%0A%3Csvg width='112' height='34' viewBox='0 0 112 34' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M111.867 0.334229C111.574 6.14504 112.264 12.3734 111.867 18.132C111.833 18.6714 111.694 19.489 111.591 20.0632C110.158 27.8921 103.271 33.6855 95.3828 33.6681V28.1183C101.372 28.1531 106.413 23.0556 106.378 17.0012H95.3828V0.334229H111.867Z' fill='%2300326D'/%3E%3Cpath d='M88.4803 0.334229V17.9059C87.9625 26.6569 80.6956 33.7029 71.9961 33.6681V28.1183C77.9857 28.1531 83.0259 23.0556 82.9913 17.0012H71.9961V0.334229H88.4803Z' fill='%2300326D'/%3E%3Cpath d='M0.125137 33.3342C0.418573 27.5234 -0.271866 21.2951 0.125137 15.5364C0.15966 14.9971 0.297747 14.1794 0.401314 13.6053C1.83397 5.77635 8.72111 -0.0170631 16.6094 0.000331879V5.55018C10.6198 5.51539 5.57961 10.6129 5.61413 16.6673H16.6094V33.3342H0.125137Z' fill='%2300326D'/%3E%3Cpath d='M23.5119 33.3342V15.7626C24.0297 7.01159 31.2966 -0.034462 39.9961 0.000335693V5.55018C34.0065 5.51539 28.9663 10.6129 29.0008 16.6673H39.9961V33.3342H23.5119Z' fill='%2300326D'/%3E%3C/svg%3E");
+
+      }
+    }
+
+    .leaders_logos{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 36px;
+    }
+  }
+}

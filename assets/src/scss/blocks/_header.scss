@@ -66,8 +66,8 @@
             gap: 24px;
         }
         @media ('max-width: 767px') {
-            padding-top: 16px;
-            padding-bottom: 16px;
+            padding-top: 13px;
+            padding-bottom: 13px;
         }
         .header_logo {
             //margin-right: 70px;
@@ -343,7 +343,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding-top: 6px;
+
 
             @media ('max-width: 1023px') {
                 justify-content: flex-end;
@@ -352,7 +352,7 @@
                 justify-content: flex-end;
             }
             a{
-                border-radius: 16px;
+                border-radius: 8px;
                 display: flex;
                 justify-content: center;
                 align-items: center;
@@ -368,8 +368,13 @@
                     font-weight: 600;
                     line-height: 40px;
                     max-height: 40px;
-                    max-width: 140px;
+                    max-width: 144px;
+                    min-width: 140px;
+                    padding-left: 10px;
+                    padding-right: 10px;
+
                 }
+
             }
 
             //a {

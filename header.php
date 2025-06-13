@@ -98,7 +98,7 @@
                 <div class="side_phone">
                     <?php $phone = get_field( 'phone', 'option' ); ?>
                     <?php if ( $phone ) : ?>
-                        <a class="btn btn_green" href="<?php echo esc_url( $phone['url'] ); ?>" target="<?php echo esc_attr( $phone['target'] ); ?>"><?php echo esc_html( $phone['title'] ); ?></a>
+                        <a class="btn btn_blue" href="<?php echo esc_url( $phone['url'] ); ?>" target="<?php echo esc_attr( $phone['target'] ); ?>"><?php echo esc_html( $phone['title'] ); ?></a>
                     <?php endif; ?>
 
                 </div>

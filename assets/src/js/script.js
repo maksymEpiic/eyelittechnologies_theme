@@ -578,3 +578,79 @@ document.addEventListener('DOMContentLoaded', function () {
         hiddenInput.value = JSON.stringify(context);
     }
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+    const dots = document.querySelectorAll(".dot");
+    const descriptions = document.querySelectorAll(".descrip");
+    const block = document.querySelector(".block_animation");
+
+    let autoIndex = 0;
+    let autoTimer = null;
+    let resumeTimer = null;
+    let isHovered = false;
+
+    function clearActive() {
+        dots.forEach(dot => dot.classList.remove("highlighted"));
+        descriptions.forEach(desc => {
+            desc.classList.remove("active", "auto");
+        });
+    }
+
+    function runAutoAnimation() {
+        clearActive();
+
+        const dot = dots[autoIndex];
+        const trigger = dot.getAttribute("data-trigger");
+        const desc = document.querySelector(`.descrip.${trigger}`);
+
+        dot.classList.add("highlighted");
+        desc.classList.add("active", "auto");
+
+        autoIndex = (autoIndex + 1) % dots.length;
+
+        autoTimer = setTimeout(runAutoAnimation, 3000);
+    }
+
+    function stopAutoAnimation() {
+        clearTimeout(autoTimer);
+        clearTimeout(resumeTimer);
+        clearActive();
+    }
+
+    function scheduleResume() {
+        clearTimeout(resumeTimer);
+        resumeTimer = setTimeout(() => {
+            if (!isHovered) {
+                runAutoAnimation();
+            }
+        }, 10000);
+    }
+
+    runAutoAnimation();
+
+    block.addEventListener("mouseenter", () => {
+        isHovered = true;
+        stopAutoAnimation();
+    });
+
+    block.addEventListener("mouseleave", () => {
+        isHovered = false;
+        scheduleResume();
+    });
+
+    dots.forEach(dot => {
+        dot.addEventListener("mouseenter", () => {
+            const target = dot.getAttribute("data-trigger");
+
+            clearActive();
+
+            dot.classList.add("highlighted");
+            const desc = document.querySelector(`.descrip.${target}`);
+            if (desc) desc.classList.add("active");
+        });
+
+        dot.addEventListener("mouseleave", () => {
+            clearActive();
+        });
+    });
+});
