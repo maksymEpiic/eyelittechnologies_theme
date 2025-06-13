@@ -25,7 +25,7 @@
                             <?php endif; ?>
                             <?php $banner_demo_button = get_field( 'banner_demo_button' ); ?>
                             <?php if ( $banner_demo_button ) : ?>
-                                <a class="btn btn_bordered" href="<?php echo esc_url( $banner_demo_button['url'] ); ?>" target="<?php echo esc_attr( $banner_demo_button['target'] ); ?>"><?php echo esc_html( $banner_demo_button['title'] ); ?></a>
+                                <a class="btn btn_white_bordered" href="<?php echo esc_url( $banner_demo_button['url'] ); ?>" target="<?php echo esc_attr( $banner_demo_button['target'] ); ?>"><?php echo esc_html( $banner_demo_button['title'] ); ?></a>
                             <?php endif; ?>
 
                         </div>
