@@ -50,6 +50,10 @@ function theme_register_style() {
     wp_enqueue_style( 'terem-style', get_stylesheet_uri() );
     enqueue_versioned_style( 'custom', '/assets/dist/css/main.css', null, 'all' );
 
+	if ( is_single() && get_field( 'short_post' ) == 1 ) {
+        enqueue_versioned_style( 'short-post', '/assets/dist/css/short_post.css', array('custom'), 'all' );
+    }
+
 }
 add_action( 'wp_enqueue_scripts', 'theme_register_style' );
 
@@ -883,3 +887,19 @@ function cf7_check_blacklisted_domains($result, $tag) {
 
     return $result;
 }
+
+//Add class to body based on custom field value
+function add_custom_body_class($classes) {
+    global $post;
+
+    if ($post) {
+        $is_short = get_field('short_post', $post->ID);
+
+        if ($is_short) {
+            $classes[] = 'short_post';
+        }
+    }
+
+    return $classes;
+}
+add_filter('body_class', 'add_custom_body_class');
